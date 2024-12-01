@@ -1,25 +1,43 @@
 package server;
 
 import java.util.Arrays;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class Main {
+    private static final int DATABASE_SIZE = 1000;
+    private final String[] database = new String[DATABASE_SIZE];
 
-    public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(12345)) {
-            System.out.println("Server is running...");
+    public Main() {
+        Arrays.fill(this.database, "");
+    }
 
-            // Wait for a client to connect
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Client connected: " + clientSocket.getInetAddress());
-        } catch (IOException e) {
-            System.err.println("Server exception: " + e.getMessage());
+    public String set(int index, String text) {
+        if (index < 1 || index > DATABASE_SIZE) {
+            return "ERROR";
         }
 
+        this.database[index - 1] = text; // Adjust for 0-based indexing
+        return "OK";
+    }
 
-        String[] database = new String[1000];
-        Arrays.fill(database, "");
+    public String get(int index) {
+        if (index < 1 || index > DATABASE_SIZE) {
+            return "ERROR";
+        }
+
+        String textRetrieved = this.database[index - 1];
+        if (textRetrieved.equals("")) {
+            return "ERROR";
+        } else {
+            return textRetrieved;
+        }
+    }
+
+    public String delete(int index) {
+        if (index < 1 || index > DATABASE_SIZE) {
+            return "ERROR";
+        }
+
+        this.database[index - 1] = "";
+        return "OK";
     }
 }
