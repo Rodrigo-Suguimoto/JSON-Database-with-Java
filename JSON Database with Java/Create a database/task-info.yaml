@@ -236,5 +236,12 @@ files:
       }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/5490#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Error in test #1
+
+    Cannot find a class with a main method in package &quot;server&quot;.
+    Check if you declared it as &quot;public static void main(String[] args)&quot;.
+  time: "Mon, 02 Dec 2024 09:51:19 UTC"
 record: -1
