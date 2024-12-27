@@ -1,0 +1,29 @@
+type: choice
+is_multiple_choice: true
+options:
+  - text: The use of the synchronized keyword is mandatory to prevent potential concurrency
+      issues even if it&#x27;s not explicitly used in the code.
+  - text: The start() method of the Thread class has been used to begin the execution
+      of the thread.
+  - text: The alive() method has been used to check the status of a thread.
+  - text: The code creates a new thread by directly instantiating the Thread class using
+      the new keyword and a MyThread instance as an argument.
+  - text: The run() method of the MyThread class defines the code to be executed by
+      the thread.
+files:
+  - name: src/Task.java
+    visible: true
+    text: |
+      // You can experiment here, it won’t be checked
+      
+      public class Task {
+        public static void main(String[] args) {
+          // put your code here
+        }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/31721#comment
+status: Solved
+record: -1
+custom_name: "Thread Basics: Birth & Life!"
+local_check: false

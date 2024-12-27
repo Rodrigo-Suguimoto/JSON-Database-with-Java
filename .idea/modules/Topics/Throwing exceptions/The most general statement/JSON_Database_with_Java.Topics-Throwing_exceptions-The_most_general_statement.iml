@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Topics-Throwing_exceptions-The_most_general_statement" external.linked.project.path="$MODULE_DIR$/../../../../../Topics/Throwing exceptions/The most general statement" external.root.project.path="$MODULE_DIR$/../../../../.." external.system.id="GRADLE" external.system.module.group="JSON Database with Java" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../Topics/Throwing exceptions/The most general statement">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/Throwing exceptions/The most general statement/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/Throwing exceptions/The most general statement/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/Throwing exceptions/The most general statement/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
