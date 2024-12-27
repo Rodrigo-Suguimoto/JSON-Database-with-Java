@@ -25,6 +25,9 @@ files:
       }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/25729#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Sat, 21 Dec 2024 15:55:43 UTC"
 record: -1
 submission_language: java17

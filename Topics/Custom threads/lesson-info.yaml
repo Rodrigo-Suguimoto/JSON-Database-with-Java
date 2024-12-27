@@ -1,3 +1,7 @@
 content:
   - Theory
   - Writing a thread for printing numbers
+  - The difference between start and run
+  - Multiple threads
+  - Statements about starting threads
+  - Message notifier as a thread
