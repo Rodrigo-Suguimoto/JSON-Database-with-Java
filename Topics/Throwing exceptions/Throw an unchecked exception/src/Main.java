@@ -1,7 +1,7 @@
 public class Main {
 
     public static void method() {
-        // write your code here
+        int i = 1 / 0;
     }
 
     /* Do not change code below */

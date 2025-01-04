@@ -5,3 +5,6 @@ content:
   - Find min and max priorities
   - Counting threads
   - Is thread daemon
+  - Thread name
+  - Thread Basics  Birth   Life
+  - Getting current thread info

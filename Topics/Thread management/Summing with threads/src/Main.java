@@ -17,6 +17,11 @@ public class Main {
         RangeSummator summator1 = new RangeSummator(from1Incl, to1Incl); // first summator
         RangeSummator summator2 = new RangeSummator(from2Incl, to2Incl); // second summator
 
+        summator1.start();
+        summator2.start();
+        summator1.join();
+        summator2.join();
+
         long partialSum1 = summator1.getResult();
         long partialSum2 = summator2.getResult();
 

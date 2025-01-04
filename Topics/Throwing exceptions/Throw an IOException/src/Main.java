@@ -3,8 +3,8 @@ import java.io.IOException;
 public class Main {
 
     // change this method
-    public static void method() {
-
+    public static void method() throws IOException {
+        throw new IOException();
     }
 
     /* Do not change code below */

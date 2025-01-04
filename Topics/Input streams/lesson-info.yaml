@@ -2,3 +2,6 @@ content:
   - Theory
   - Discovering Java input streams
   - Reverse input text
+  - Decoding Java FileInputStream usage
+  - Count words
+  - Read into an array

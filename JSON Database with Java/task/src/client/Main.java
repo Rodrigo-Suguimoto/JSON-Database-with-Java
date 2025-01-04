@@ -1,57 +1,30 @@
 package client;
 
-import java.util.Scanner;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        String address = "127.0.0.1";
+        int port = 23456;
+        try {
+            InetAddress inetAddress = InetAddress.getByName(address);
+            try (Socket socket = new Socket(inetAddress, port)) {
+                System.out.println("Client started!");
+                DataInputStream input = new DataInputStream(socket.getInputStream());
+                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
-        String input;
-        do {
-            input = scanner.nextLine();
-            String[] parts = input.split(" ");
-            String command = parts[0];
+                String textToSend = "Give me a record of # 12";
+                output.writeUTF(textToSend);
+                System.out.println("Sent: " + textToSend);
 
-            switch (command) {
-                case "set":
-                    if (parts.length >= 3) {
-                        int index = Integer.parseInt(parts[1]);
-                        String text = "";
-
-                        for (int i = 2; i < parts.length; i++) {
-                            text += parts[i] + " ";
-                        }
-
-                        text = text.trim(); // Remove white space
-                        String serverResponse = server.Main.set(index, text);
-
-                        System.out.println(serverResponse);
-                    } else {
-                        System.out.println("ERROR");
-                    }
-                    break;
-                case "get":
-                    if (parts.length == 2) {
-                        int index = Integer.parseInt(parts[1]);
-                        System.out.println(server.Main.get(index));
-                    } else {
-                        System.out.println("ERROR");
-                    }
-                    break;
-                case "delete":
-                    if (parts.length == 2) {
-                        int index = Integer.parseInt(parts[1]);
-                        System.out.println(server.Main.delete(index));
-                    } else {
-                        System.out.println("ERROR");
-                    }
-                    break;
-                case "exit":
-                    break;
-                default:
-                    System.out.println("ERROR");
-                    break;
+                System.out.println("Received: " + input.readUTF());
             }
-        } while (!input.equals("exit"));
+        } catch (IOException e) {
+            System.err.println("Unexpected IO error: " + e.getMessage());
+        }
     }
 }
