@@ -6,3 +6,11 @@
 #Received: Give me a record of # 12
 Sent: A record # 12 was sent!
 "Received: A record # 12 was sent!
+[1;31m
+Start test 2[0m
+Server started!
+Client started!
+Sent: Give me a record of # 12
+#Received: Give me a record of # 12
+Sent: A record # 12 was sent!
+"Received: A record # 12 was sent!

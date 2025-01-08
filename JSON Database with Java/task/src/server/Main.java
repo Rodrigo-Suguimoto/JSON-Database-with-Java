@@ -18,11 +18,7 @@ public class Main {
                 try (Socket socket = server.accept()) {
                     DataInputStream input = new DataInputStream(socket.getInputStream());
                     DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-                    System.out.println("Received: " + input.readUTF());
 
-                    String serverOutput = "A record # 12 was sent!";
-                    output.writeUTF(serverOutput);
-                    System.out.println("Sent: " + serverOutput);
                 } catch (IOException e) {
                     System.out.println("Error while handling client connection" + e.getMessage());
                 }

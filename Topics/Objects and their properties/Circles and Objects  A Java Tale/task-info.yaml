@@ -1,0 +1,26 @@
+type: choice
+is_multiple_choice: true
+options:
+  - text: E. The Circle class has an object constructor with a parameter
+  - text: B. circle1 and circle2 are objects of the TestCircle class
+  - text: A. There are two instances of the Circle class
+  - text: D. The area1 and area2 variables store the same value
+  - text: C. Both circle1 and circle2 have an attribute called radius and a method called
+      getArea()
+files:
+  - name: src/Task.java
+    visible: true
+    text: |
+      // You can experiment here, it won’t be checked
+      
+      public class Task {
+        public static void main(String[] args) {
+          // put your code here
+        }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/29809#comment
+status: Solved
+record: -1
+custom_name: "Circles and Objects: A Java Tale"
+local_check: false
