@@ -29,7 +29,6 @@ public class Main {
             InetAddress inetAddress = InetAddress.getByName(address);
             try (Socket socket = new Socket(inetAddress, port)) {
                 System.out.println("Client started!");
-                DataInputStream input = new DataInputStream(socket.getInputStream());
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
                 String requestType = main.requestType;
@@ -37,15 +36,16 @@ public class Main {
                 String message = main.message;
 
                 ClientRequest request;
-                if (message.equals("")) {
+                if (requestType.equalsIgnoreCase("exit")) {
+                    request = new ClientRequest(requestType);
+                } else if (message.equals("")) {
                     request = new ClientRequest(requestType, index);
                 } else {
                     request = new ClientRequest(requestType, index, message);
                 }
 
+                output.writeUTF(request.getTextToSend());
                 System.out.println("Sent: " + request.getTextToSend());
-
-//                System.out.println("Received: " + input.readUTF());
             }
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());
@@ -55,27 +55,32 @@ public class Main {
 
 class ClientRequest {
     private String requestType;
-    private int index;
+    private Integer index;
     private String message;
     private String textToSend;
 
-    public ClientRequest(String requestType, int index, String message) {
+    public ClientRequest(String requestType, Integer index, String message) {
         this.requestType = requestType;
         this.index = index;
         this.message = message;
         this.textToSend = String.format("%s %d %s", requestType, index, message);
     }
 
-    public ClientRequest(String requestType, int index) {
+    public ClientRequest(String requestType, Integer index) {
         this(requestType, index, "");
         this.textToSend = String.format("%s %s", requestType, index);
+    }
+
+    public ClientRequest(String requestType) {
+        this.requestType = requestType;
+        this.textToSend = String.format("%s", requestType);
     }
 
     public String getRequestType() {
         return requestType;
     }
 
-    public int getIndex() {
+    public Integer getIndex() {
         return index;
     }
 
