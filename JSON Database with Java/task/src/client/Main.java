@@ -30,6 +30,7 @@ public class Main {
             try (Socket socket = new Socket(inetAddress, port)) {
                 System.out.println("Client started!");
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+                DataInputStream input = new DataInputStream(socket.getInputStream());
 
                 String requestType = main.requestType;
                 int index = main.index;
@@ -46,6 +47,11 @@ public class Main {
 
                 output.writeUTF(request.getTextToSend());
                 System.out.println("Sent: " + request.getTextToSend());
+
+                if (!requestType.equalsIgnoreCase("exit")) {
+                    String serverResponse = input.readUTF();
+                    System.out.println("Received: " + serverResponse);
+                }
             }
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());

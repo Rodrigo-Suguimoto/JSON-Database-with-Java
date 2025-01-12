@@ -9,7 +9,7 @@
 <pre><code class="language-java">Reader reader = new FileReader("file.txt");
 // code which may throw an exception
 reader.close();</code></pre>
-<p>Suppose something goes wrong before the <code class="language-java">close</code> invocation and an exception is thrown. It leads to a situation in which the method will never be called and system resources won't be released. It is possible to solve the problem by using the <strong><a class="theory-lookup not-relevant" href="/learn/step/9734" rel="noopener noreferrer nofollow" target="_blank" title="In Java, try-catch-finally is a statement used for exception handling. | It allows the program to continue running instead of abruptly stopping when an unexpected condition or exception occurs during program execution. The try block contains the code that might throw an exception, and the catch block contains the code that handles the exception. The finally block, which is optional, contains code that always runs, regardless of whether an exception has occurred or not. When a line of code throws an exception, the Java runtime system attempts to find a suitable handler for it, either in the same method where the exception occurred or in the calling method.">try-catch-finally</a></strong> construction:</p>
+<p>Suppose something goes wrong before the <code class="language-java">close</code> invocation and an exception is thrown. It leads to a situation in which the method will never be called and system resources won't be released. It is possible to solve the problem by using the <strong>try-catch-finally</strong> construction:</p>
 <pre><code class="language-java">Reader reader = null;
 
 try {
