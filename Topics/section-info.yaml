@@ -8,3 +8,6 @@ content:
   - Try with resources
   - Output streams
   - Command
+  - Getters and setters
+  - Multiple constructors
+  - Objects and their properties
