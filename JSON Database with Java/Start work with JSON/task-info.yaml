@@ -390,8 +390,16 @@ files:
           }
       }
     learner_created: false
+  - name: src/client/Main.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/client/ClientRequest.class
+    visible: true
+    is_binary: true
+    learner_created: true
   - name: test/JsonFinder.java
-    visible: false
+    visible: true
     text: |
       import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
       
@@ -429,16 +437,8 @@ files:
                       "It should contain 'response' key");
           }
       }
-    learner_created: false
-  - name: src/client/Main.class
-    visible: true
-    is_binary: true
     learner_created: true
   - name: src/server/Main.class
-    visible: true
-    is_binary: true
-    learner_created: true
-  - name: src/client/ClientRequest.class
     visible: true
     is_binary: true
     learner_created: true
