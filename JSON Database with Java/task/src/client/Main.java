@@ -7,14 +7,15 @@ import java.net.InetAddress;
 import java.net.Socket;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.google.gson.Gson;
 
 public class Main {
     @Parameter(names={"--type", "-t"})
     String requestType;
-    @Parameter(names={"--index", "-i"})
-    int index;
-    @Parameter(names={"--message", "-m"})
-    String message = "";
+    @Parameter(names={"--key", "-k"})
+    String key;
+    @Parameter(names={"--value", "-v"})
+    String value = "";
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -33,25 +34,30 @@ public class Main {
                 DataInputStream input = new DataInputStream(socket.getInputStream());
 
                 String requestType = main.requestType;
-                int index = main.index;
-                String message = main.message;
+                String key = main.key;
+                String value = main.value;
 
-                ClientRequest request;
-                if (requestType.equalsIgnoreCase("exit")) {
-                    request = new ClientRequest(requestType);
-                } else if (message.equals("")) {
-                    request = new ClientRequest(requestType, index);
-                } else {
-                    request = new ClientRequest(requestType, index, message);
+                ClientRequest request = new ClientRequest(requestType);
+                switch (requestType) {
+                    case "exit":
+                        request = new ClientRequest(requestType);
+                        break;
+                    case "get":
+                    case "delete":
+                        request = new ClientRequest(requestType, key);
+                        break;
+                    case "set":
+                        request = new ClientRequest(requestType, key, value);
+                        break;
                 }
 
-                output.writeUTF(request.getTextToSend());
-                System.out.println("Sent: " + request.getTextToSend());
+                String requestAsJson = new RequestAsJson(request).getRequestAsJson();
+                System.out.println(requestAsJson);
 
-                if (!requestType.equalsIgnoreCase("exit")) {
-                    String serverResponse = input.readUTF();
-                    System.out.println("Received: " + serverResponse);
-                }
+//                if (!requestType.equalsIgnoreCase("exit")) {
+//                    String serverResponse = input.readUTF();
+//                    System.out.println("Received: " + serverResponse);
+//                }
             }
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());
@@ -61,40 +67,44 @@ public class Main {
 
 class ClientRequest {
     private String requestType;
-    private Integer index;
-    private String message;
-    private String textToSend;
+    private String key;
+    private String value;
 
-    public ClientRequest(String requestType, Integer index, String message) {
+    public ClientRequest(String requestType, String key, String value) {
         this.requestType = requestType;
-        this.index = index;
-        this.message = message;
-        this.textToSend = String.format("%s %d %s", requestType, index, message);
+        this.key = key;
+        this.value = value;
     }
 
-    public ClientRequest(String requestType, Integer index) {
-        this(requestType, index, "");
-        this.textToSend = String.format("%s %s", requestType, index);
+    public ClientRequest(String requestType, String key) {
+        this(requestType, key, "");
     }
 
     public ClientRequest(String requestType) {
         this.requestType = requestType;
-        this.textToSend = String.format("%s", requestType);
     }
 
     public String getRequestType() {
         return requestType;
     }
 
-    public Integer getIndex() {
-        return index;
+    public String getKey() {
+        return key;
     }
 
-    public String getMessage() {
-        return message;
+    public String getValue() {
+        return value;
+    }
+}
+
+class RequestAsJson {
+    private String requestAsJson;
+
+    public RequestAsJson(ClientRequest request) {
+        this.requestAsJson = new Gson().toJson(request);
     }
 
-    public String getTextToSend() {
-        return textToSend;
+    public String getRequestAsJson() {
+        return requestAsJson;
     }
 }
