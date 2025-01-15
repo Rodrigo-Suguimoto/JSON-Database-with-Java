@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.google.gson.Gson;
+import shared.Request;
 
 public class Main {
     @Parameter(names={"--type", "-t"})
@@ -37,22 +37,21 @@ public class Main {
                 String key = main.key;
                 String value = main.value;
 
-                ClientRequest request = new ClientRequest(requestType);
+                Request request = new Request(requestType);
                 switch (requestType) {
                     case "exit":
-                        request = new ClientRequest(requestType);
+                        request = new Request(requestType);
                         break;
                     case "get":
                     case "delete":
-                        request = new ClientRequest(requestType, key);
+                        request = new Request(requestType, key);
                         break;
                     case "set":
-                        request = new ClientRequest(requestType, key, value);
+                        request = new Request(requestType, key, value);
                         break;
                 }
 
-                String requestAsJson = new RequestAsJson(request).getRequestAsJson();
-                System.out.println(requestAsJson);
+                String requestAsJson = Request.serializeToGson(request);
 
 //                if (!requestType.equalsIgnoreCase("exit")) {
 //                    String serverResponse = input.readUTF();
@@ -62,49 +61,5 @@ public class Main {
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());
         }
-    }
-}
-
-class ClientRequest {
-    private String requestType;
-    private String key;
-    private String value;
-
-    public ClientRequest(String requestType, String key, String value) {
-        this.requestType = requestType;
-        this.key = key;
-        this.value = value;
-    }
-
-    public ClientRequest(String requestType, String key) {
-        this(requestType, key, "");
-    }
-
-    public ClientRequest(String requestType) {
-        this.requestType = requestType;
-    }
-
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-}
-
-class RequestAsJson {
-    private String requestAsJson;
-
-    public RequestAsJson(ClientRequest request) {
-        this.requestAsJson = new Gson().toJson(request);
-    }
-
-    public String getRequestAsJson() {
-        return requestAsJson;
     }
 }
