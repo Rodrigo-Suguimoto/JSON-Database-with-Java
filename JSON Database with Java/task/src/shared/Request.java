@@ -36,4 +36,8 @@ public class Request {
     public static String serializeToGson(Request request) {
         return new Gson().toJson(request);
     }
+
+    public static Request deserializeGson(String json) {
+        return new Gson().fromJson(json, Request.class);
+    }
 }

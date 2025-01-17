@@ -52,6 +52,8 @@ public class Main {
                 }
 
                 String requestAsJson = Request.serializeToGson(request);
+                System.out.println("Sent: " + requestAsJson);
+                output.writeUTF(requestAsJson);
 
 //                if (!requestType.equalsIgnoreCase("exit")) {
 //                    String serverResponse = input.readUTF();
