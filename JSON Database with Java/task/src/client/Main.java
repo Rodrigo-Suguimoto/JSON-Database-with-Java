@@ -11,7 +11,7 @@ import shared.Request;
 
 public class Main {
     @Parameter(names={"--type", "-t"})
-    String requestType;
+    String type;
     @Parameter(names={"--key", "-k"})
     String key;
     @Parameter(names={"--value", "-v"})
@@ -33,21 +33,21 @@ public class Main {
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 DataInputStream input = new DataInputStream(socket.getInputStream());
 
-                String requestType = main.requestType;
+                String type = main.type;
                 String key = main.key;
                 String value = main.value;
 
-                Request request = new Request(requestType);
-                switch (requestType) {
+                Request request = new Request(type);
+                switch (type) {
                     case "exit":
-                        request = new Request(requestType);
+                        request = new Request(type);
                         break;
                     case "get":
                     case "delete":
-                        request = new Request(requestType, key);
+                        request = new Request(type, key);
                         break;
                     case "set":
-                        request = new Request(requestType, key, value);
+                        request = new Request(type, key, value);
                         break;
                 }
 
@@ -55,10 +55,10 @@ public class Main {
                 System.out.println("Sent: " + requestAsJson);
                 output.writeUTF(requestAsJson);
 
-//                if (!requestType.equalsIgnoreCase("exit")) {
-//                    String serverResponse = input.readUTF();
-//                    System.out.println("Received: " + serverResponse);
-//                }
+                if (!type.equalsIgnoreCase("exit")) {
+                    String serverResponse = input.readUTF();
+                    System.out.println("Received: " + serverResponse);
+                }
             }
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());

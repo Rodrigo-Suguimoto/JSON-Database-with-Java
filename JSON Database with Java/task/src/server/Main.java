@@ -8,6 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.Gson;
 import shared.Request;
 
 public class Main {
@@ -27,29 +29,45 @@ public class Main {
                         DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
                         Request clientCommand = Request.deserializeGson(input.readUTF());
-                        System.out.println(clientCommand.getRequestType());
 
-//                        if (parsedCommand.getRequestType().equalsIgnoreCase("exit")) {
-//                            isRunning = false;
-//                        } else {
-//                            String response = "ERROR";
-//                            if (parsedCommand.getIndex() != null && parsedCommand.getIndex() > 0 && parsedCommand.getIndex() <= 1000) {
-//                                switch(parsedCommand.getRequestType()) {
-//                                    case "get":
-//                                        response = database.getOrDefault(parsedCommand.getIndex(), "ERROR");
-//                                        break;
-//                                    case "set":
-//                                        database.put(parsedCommand.getIndex(), parsedCommand.getMessage());
-//                                        response = "OK";
-//                                        break;
-//                                    case "delete":
-//                                        database.remove(parsedCommand.getIndex());
-//                                        response = "OK";
-//                                        break;
-//                                }
-//                            }
-//                        }
+                        if (clientCommand.getType().equalsIgnoreCase("exit")) {
+                            isRunning = false;
+                        } else {
+                            String response = "ERROR";
+                            Map<String, String> fullResponse = new HashMap<>();
+                            switch(clientCommand.getType()) {
+                                case "get":
+                                    if (database.containsKey(clientCommand.getKey())) {
+                                        response = "OK";
+                                        fullResponse.put("response", response);
+                                        fullResponse.put("value", database.get(clientCommand.getKey()));
+                                    } else {
+                                        fullResponse.put("response", response);
+                                        fullResponse.put("reason", "No such key");
+                                    }
 
+                                    break;
+                                case "set":
+                                    database.put(clientCommand.getKey(), clientCommand.getValue());
+                                    response = "OK";
+                                    fullResponse.put("response", response);
+                                    break;
+                                case "delete":
+                                    if (database.containsKey(clientCommand.getKey())) {
+                                        database.remove(clientCommand.getKey());
+                                        response = "OK";
+                                        fullResponse.put("response", response);
+                                    } else {
+                                        fullResponse.put("response", response);
+                                        fullResponse.put("reason", "No such key");
+                                    }
+
+                                    break;
+                            }
+
+                            String fullResponseAsJson = new Gson().toJson(fullResponse);
+                            output.writeUTF(fullResponseAsJson);
+                        }
                     } catch (IOException e) {
                         System.out.println("Error while handling client connection " + e.getMessage());
                     }

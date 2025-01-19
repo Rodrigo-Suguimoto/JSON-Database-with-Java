@@ -3,26 +3,27 @@ package shared;
 import com.google.gson.Gson;
 
 public class Request {
-    private String requestType;
+    private String type;
     private String key;
-    private String value;
+    private String value = null;
 
-    public Request(String requestType, String key, String value) {
-        this.requestType = requestType;
+    public Request(String type, String key, String value) {
+        this.type = type;
         this.key = key;
         this.value = value;
     }
 
-    public Request(String requestType, String key) {
-        this(requestType, key, "");
+    public Request(String type, String key) {
+        this.type = type;
+        this.key = key;
     }
 
-    public Request(String requestType) {
-        this.requestType = requestType;
+    public Request(String type) {
+        this.type = type;
     }
 
-    public String getRequestType() {
-        return requestType;
+    public String getType() {
+        return type;
     }
 
     public String getKey() {
