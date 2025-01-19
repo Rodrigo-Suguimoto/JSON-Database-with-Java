@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-01-09T10:41:15" hostname="10903-MB.local" time="2.528">
+<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-01-19T12:47:40" hostname="10903-MB.local" time="2.826">
   <properties/>
-  <testcase name="start" classname="JsonDatabaseTest" time="2.528"/>
+  <testcase name="start" classname="JsonDatabaseTest" time="2.826"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 Server started!
 Client started!
-Sent: exit
+Sent: {"type":"exit"}
 ?[1;31m
 Start test 2?[0m
 Server started!
 Client started!
-Sent: get 1
-Received: ERROR
+Sent: {"type":"get","key":"1"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: set 1 Hello world!
-Received: OK
+Sent: {"type":"set","key":"1","value":"Hello world!"}
+Received: {"response":"OK"}
 Client started!
-Sent: set 1 HelloWorld!
-Received: OK
+Sent: {"type":"set","key":"1","value":"HelloWorld!"}
+Received: {"response":"OK"}
 Client started!
-Sent: get 1
-Received: HelloWorld!
+Sent: {"type":"get","key":"1"}
+Received: {"response":"OK","value":"HelloWorld!"}
 Client started!
-Sent: delete 1
-Received: OK
+Sent: {"type":"delete","key":"1"}
+Received: {"response":"OK"}
 Client started!
-Sent: delete 1
-Received: OK
+Sent: {"type":"delete","key":"1"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: get 1
-Received: ERROR
+Sent: {"type":"get","key":"1"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: set 55 Hyperskill is the best!
-Received: OK
+Sent: {"type":"set","key":"text","value":"Hyperskill is the best!"}
+Received: {"response":"OK"}
 Client started!
-Sent: get 55
-Received: Hyperskill is the best!
+Sent: {"type":"get","key":"text"}
+Received: {"response":"OK","value":"Hyperskill is the best!"}
 Client started!
-Sent: get 56
-Received: ERROR
+Sent: {"type":"get","key":"name"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: delete 55
-Received: OK
+Sent: {"type":"delete","key":"name"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: delete 56
-Received: OK
+Sent: {"type":"set","key":"name","value":"Sorabh Tomar"}
+Received: {"response":"OK"}
 Client started!
-Sent: delete 100
-Received: OK
+Sent: {"type":"get","key":"name"}
+Received: {"response":"OK","value":"Sorabh Tomar"}
 Client started!
-Sent: delete 0
-Received: ERROR
+Sent: {"type":"delete","key":"100"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: delete 1001
-Received: ERROR
+Sent: {"type":"delete","key":"That key doesn\u0027t exist"}
+Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: exit
+Sent: {"type":"exit"}
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

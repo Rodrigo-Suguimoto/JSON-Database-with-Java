@@ -7,14 +7,15 @@ import java.net.InetAddress;
 import java.net.Socket;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import shared.Request;
 
 public class Main {
     @Parameter(names={"--type", "-t"})
-    String requestType;
-    @Parameter(names={"--index", "-i"})
-    int index;
-    @Parameter(names={"--message", "-m"})
-    String message = "";
+    String type;
+    @Parameter(names={"--key", "-k"})
+    String key;
+    @Parameter(names={"--value", "-v"})
+    String value = "";
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -32,23 +33,29 @@ public class Main {
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
                 DataInputStream input = new DataInputStream(socket.getInputStream());
 
-                String requestType = main.requestType;
-                int index = main.index;
-                String message = main.message;
+                String type = main.type;
+                String key = main.key;
+                String value = main.value;
 
-                ClientRequest request;
-                if (requestType.equalsIgnoreCase("exit")) {
-                    request = new ClientRequest(requestType);
-                } else if (message.equals("")) {
-                    request = new ClientRequest(requestType, index);
-                } else {
-                    request = new ClientRequest(requestType, index, message);
+                Request request = new Request(type);
+                switch (type) {
+                    case "exit":
+                        request = new Request(type);
+                        break;
+                    case "get":
+                    case "delete":
+                        request = new Request(type, key);
+                        break;
+                    case "set":
+                        request = new Request(type, key, value);
+                        break;
                 }
 
-                output.writeUTF(request.getTextToSend());
-                System.out.println("Sent: " + request.getTextToSend());
+                String requestAsJson = Request.serializeToGson(request);
+                System.out.println("Sent: " + requestAsJson);
+                output.writeUTF(requestAsJson);
 
-                if (!requestType.equalsIgnoreCase("exit")) {
+                if (!type.equalsIgnoreCase("exit")) {
                     String serverResponse = input.readUTF();
                     System.out.println("Received: " + serverResponse);
                 }
@@ -56,45 +63,5 @@ public class Main {
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());
         }
-    }
-}
-
-class ClientRequest {
-    private String requestType;
-    private Integer index;
-    private String message;
-    private String textToSend;
-
-    public ClientRequest(String requestType, Integer index, String message) {
-        this.requestType = requestType;
-        this.index = index;
-        this.message = message;
-        this.textToSend = String.format("%s %d %s", requestType, index, message);
-    }
-
-    public ClientRequest(String requestType, Integer index) {
-        this(requestType, index, "");
-        this.textToSend = String.format("%s %s", requestType, index);
-    }
-
-    public ClientRequest(String requestType) {
-        this.requestType = requestType;
-        this.textToSend = String.format("%s", requestType);
-    }
-
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public Integer getIndex() {
-        return index;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getTextToSend() {
-        return textToSend;
     }
 }

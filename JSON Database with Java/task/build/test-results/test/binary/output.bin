@@ -2,54 +2,54 @@
 Start test 1[0m
 Server started!
 Client started!
-Sent: exit
+Sent: {"type":"exit"}
 [1;31m
 Start test 2[0m
 Server started!
 Client started!
-Sent: get 1
-Received: ERROR
+Sent: {"type":"get","key":"1"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: set 1 Hello world!
-Received: OK
+6Sent: {"type":"set","key":"1","value":"Hello world!"}
+Received: {"response":"OK"}
 Client started!
-Sent: set 1 HelloWorld!
-Received: OK
+5Sent: {"type":"set","key":"1","value":"HelloWorld!"}
+Received: {"response":"OK"}
 Client started!
-Sent: get 1
-Received: HelloWorld!
+Sent: {"type":"get","key":"1"}
+2Received: {"response":"OK","value":"HelloWorld!"}
 Client started!
-Sent: delete 1
-Received: OK
+"Sent: {"type":"delete","key":"1"}
+Received: {"response":"OK"}
 Client started!
-Sent: delete 1
-Received: OK
+"Sent: {"type":"delete","key":"1"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: get 1
-Received: ERROR
+Sent: {"type":"get","key":"1"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-%Sent: set 55 Hyperskill is the best!
-Received: OK
+DSent: {"type":"set","key":"text","value":"Hyperskill is the best!"}
+Received: {"response":"OK"}
 Client started!
-Sent: get 55
-"Received: Hyperskill is the best!
+"Sent: {"type":"get","key":"text"}
+>Received: {"response":"OK","value":"Hyperskill is the best!"}
 Client started!
-Sent: get 56
-Received: ERROR
+"Sent: {"type":"get","key":"name"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: delete 55
-Received: OK
+%Sent: {"type":"delete","key":"name"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: delete 56
-Received: OK
+9Sent: {"type":"set","key":"name","value":"Sorabh Tomar"}
+Received: {"response":"OK"}
 Client started!
-Sent: delete 100
-Received: OK
+"Sent: {"type":"get","key":"name"}
+3Received: {"response":"OK","value":"Sorabh Tomar"}
 Client started!
-Sent: delete 0
-Received: ERROR
+$Sent: {"type":"delete","key":"100"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: delete 1001
-Received: ERROR
+<Sent: {"type":"delete","key":"That key doesn\u0027t exist"}
+6Received: {"reason":"No such key","response":"ERROR"}
 Client started!
-Sent: exit
+Sent: {"type":"exit"}

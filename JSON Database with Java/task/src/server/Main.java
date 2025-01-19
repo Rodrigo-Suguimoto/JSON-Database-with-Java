@@ -9,8 +9,11 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import shared.Request;
+
 public class Main {
-    private static final Map<Integer, String> database = new HashMap<>();
+    private static final Map<String, String> database = new HashMap<>();
 
     public static void main(String[] args) {
         String address = "127.0.0.1";
@@ -25,30 +28,45 @@ public class Main {
                         DataInputStream input = new DataInputStream(socket.getInputStream());
                         DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
-                        String clientCommand = input.readUTF();
-                        ParsedCommand parsedCommand = new ParsedCommand(clientCommand);
+                        Request clientCommand = Request.deserializeGson(input.readUTF());
 
-                        if (parsedCommand.getRequestType().equalsIgnoreCase("exit")) {
+                        if (clientCommand.getType().equalsIgnoreCase("exit")) {
                             isRunning = false;
                         } else {
                             String response = "ERROR";
-                            if (parsedCommand.getIndex() != null && parsedCommand.getIndex() > 0 && parsedCommand.getIndex() <= 1000) {
-                                switch(parsedCommand.getRequestType()) {
-                                    case "get":
-                                        response = database.getOrDefault(parsedCommand.getIndex(), "ERROR");
-                                        break;
-                                    case "set":
-                                        database.put(parsedCommand.getIndex(), parsedCommand.getMessage());
+                            Map<String, String> fullResponse = new HashMap<>();
+                            switch(clientCommand.getType()) {
+                                case "get":
+                                    if (database.containsKey(clientCommand.getKey())) {
                                         response = "OK";
-                                        break;
-                                    case "delete":
-                                        database.remove(parsedCommand.getIndex());
+                                        fullResponse.put("response", response);
+                                        fullResponse.put("value", database.get(clientCommand.getKey()));
+                                    } else {
+                                        fullResponse.put("response", response);
+                                        fullResponse.put("reason", "No such key");
+                                    }
+
+                                    break;
+                                case "set":
+                                    database.put(clientCommand.getKey(), clientCommand.getValue());
+                                    response = "OK";
+                                    fullResponse.put("response", response);
+                                    break;
+                                case "delete":
+                                    if (database.containsKey(clientCommand.getKey())) {
+                                        database.remove(clientCommand.getKey());
                                         response = "OK";
-                                        break;
-                                }
+                                        fullResponse.put("response", response);
+                                    } else {
+                                        fullResponse.put("response", response);
+                                        fullResponse.put("reason", "No such key");
+                                    }
+
+                                    break;
                             }
 
-                            output.writeUTF(response);
+                            String fullResponseAsJson = new Gson().toJson(fullResponse);
+                            output.writeUTF(fullResponseAsJson);
                         }
                     } catch (IOException e) {
                         System.out.println("Error while handling client connection " + e.getMessage());
@@ -58,34 +76,5 @@ public class Main {
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());
         }
-    }
-}
-
-class ParsedCommand {
-    private String requestType;
-    private Integer index;
-    private String message;
-
-    public ParsedCommand(String command) {
-        String[] parts = command.split(" ", 3);
-        if (parts.length < 1) {
-            throw new IllegalArgumentException("Invalid command format");
-        }
-
-        this.requestType = parts[0];
-        this.index = parts.length > 1 ? Integer.parseInt(parts[1]) : null;
-        this.message = parts.length > 2 ? parts[2] : null;
-    }
-
-    public String getRequestType() {
-        return requestType;
-    }
-
-    public Integer getIndex() {
-        return index;
-    }
-
-    public String getMessage() {
-        return message;
     }
 }
