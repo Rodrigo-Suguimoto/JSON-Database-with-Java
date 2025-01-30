@@ -1,21 +1,20 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
 
 import com.google.gson.Gson;
 import shared.Request;
 
 public class Main {
-    private static final Map<String, String> database = new HashMap<>();
-
     public static void main(String[] args) {
+        Map<String, String> database = loadDatabase();
         String address = "127.0.0.1";
         int port = 23456;
         try {
@@ -75,6 +74,18 @@ public class Main {
             }
         } catch (IOException e) {
             System.err.println("Unexpected IO error: " + e.getMessage());
+        }
+    }
+
+    private static Map<String, String> loadDatabase() {
+        String pathToDb = System.getProperty("user.dir") + "/src/server/data/db.json";
+        try (FileReader reader = new FileReader(pathToDb)) {
+            Gson gson = new Gson();
+            Type mapType = new TypeToken<Map<String, String>>() {}.getType();
+            return gson.fromJson(reader, mapType);
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+            return null;
         }
     }
 }
