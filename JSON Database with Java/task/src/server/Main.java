@@ -78,7 +78,7 @@ public class Main {
     }
 
     private static Map<String, String> loadDatabase() {
-        String pathToDb = System.getProperty("user.dir") + "/src/server/data/db.json";
+        String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
         try (FileReader reader = new FileReader(pathToDb)) {
             Gson gson = new Gson();
             Type mapType = new TypeToken<Map<String, String>>() {}.getType();

@@ -33,7 +33,7 @@
 <ul>
 </ul>
 <h5 id="throwing-checked-exceptions" style="text-align: center;">Throwing checked exceptions</h5>
-<p>For example, let's take a look at the following method that <a class="theory-lookup not-relevant" href="/learn/step/3553" rel="noopener noreferrer nofollow" target="_blank" title="In Java, a read is a method used to obtain data from an input stream, such as a file or network connection. | These methods block the program from running until some input is available or the end of the stream is reached. For example, the `read()` method of the `InputStream` class reads a single byte of data from the input stream and returns it as an integer. The `read(byte[] b)` method reads up to a specified number of bytes of data from the input stream into an array and returns the number of bytes read. It is important to note that the `read()` method does not necessarily fill the entire array if data is not available.">reads</a> text from a file. In case the file is not found, the method throws an <code class="language-java">IOException</code>:</p>
+<p>For example, let's take a look at the following method that reads text from a file. In case the file is not found, the method throws an <code class="language-java">IOException</code>:</p>
 <pre><code class="language-java">public static String readTextFromFile(String path) throws IOException {
     // find a file by the specified path    
 
