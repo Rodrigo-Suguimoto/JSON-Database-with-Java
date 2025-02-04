@@ -28,10 +28,11 @@ public class Main {
         int port = 23456;
         try {
             InetAddress inetAddress = InetAddress.getByName(address);
-            try (Socket socket = new Socket(inetAddress, port)) {
+            try (Socket socket = new Socket(inetAddress, port);
+                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+                 DataInputStream input = new DataInputStream(socket.getInputStream());
+            ) {
                 System.out.println("Client started!");
-                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-                DataInputStream input = new DataInputStream(socket.getInputStream());
 
                 String type = main.type;
                 String key = main.key;

@@ -65,8 +65,10 @@ public class Main {
     private static void handleClient(Socket socket, Map<String, String> database,
                                      Lock readLock, Lock writeLock, ExecutorService executor) {
         try (socket;
-        DataInputStream input = new DataInputStream(socket.getInputStream());
-        DataOutputStream output = new DataOutputStream(socket.getOutputStream())) {
+            DataInputStream input = new DataInputStream(socket.getInputStream());
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream())
+        ) {
+
             Request clientCommand = Request.deserializeGson(input.readUTF());
 
             if (clientCommand.getType().equalsIgnoreCase("exit")) {
@@ -80,7 +82,9 @@ public class Main {
 
             switch(clientCommand.getType()) {
                 case "get":
+                    System.out.println("this is running correctly");
                     readLock.lock();
+                    System.out.println(database.containsKey(clientCommand.getKey()));
                     try {
                         if (database.containsKey(clientCommand.getKey())) {
                             response = "OK";
@@ -89,7 +93,10 @@ public class Main {
                         } else {
                             fullResponse.put("response", response);
                             fullResponse.put("reason", "No such key");
+                            System.out.println("this is not running. Why?");
                         }
+
+                        System.out.println("I am trying to understand why this doesn't run");
                     } finally {
                         readLock.unlock();
                     }
