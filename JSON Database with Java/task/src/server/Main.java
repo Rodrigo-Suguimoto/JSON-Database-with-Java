@@ -21,6 +21,7 @@ import shared.Request;
 public class Main {
 
     private static volatile boolean isRunning = true;
+    private static Map<String, String> database;
 
     public static void main(String[] args) {
         String address = "127.0.0.1";
@@ -30,7 +31,7 @@ public class Main {
             try (ServerSocket server = new ServerSocket(port, 50, inetAddress)) {
                 System.out.println("Server started!");
 
-                Map<String, String> database = loadDatabase();
+                database = loadDatabase();
                 ReadWriteLock lock = new ReentrantReadWriteLock();
                 Lock readLock = lock.readLock();
                 Lock writeLock = lock.writeLock();
@@ -55,10 +56,21 @@ public class Main {
         try (FileReader reader = new FileReader(pathToDb)) {
             Gson gson = new Gson();
             Type mapType = new TypeToken<Map<String, String>>() {}.getType();
-            return gson.fromJson(reader, mapType);
+            Map<String, String> database = gson.fromJson(reader, mapType);
+            return (database == null) ? new HashMap<>() : database;
         } catch (IOException e) {
             System.err.println("Error reading the file: " + e.getMessage());
             return null;
+        }
+    }
+
+    private static void saveDatabase() {
+        String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter(pathToDb)) {
+            gson.toJson(database, writer);
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
 
@@ -82,9 +94,7 @@ public class Main {
 
             switch(clientCommand.getType()) {
                 case "get":
-                    System.out.println("this is running correctly");
                     readLock.lock();
-                    System.out.println(database.containsKey(clientCommand.getKey()));
                     try {
                         if (database.containsKey(clientCommand.getKey())) {
                             response = "OK";
@@ -93,10 +103,7 @@ public class Main {
                         } else {
                             fullResponse.put("response", response);
                             fullResponse.put("reason", "No such key");
-                            System.out.println("this is not running. Why?");
                         }
-
-                        System.out.println("I am trying to understand why this doesn't run");
                     } finally {
                         readLock.unlock();
                     }
@@ -105,6 +112,7 @@ public class Main {
                     writeLock.lock();
                     try {
                         database.put(clientCommand.getKey(), clientCommand.getValue());
+                        saveDatabase();
                         response = "OK";
                         fullResponse.put("response", response);
                     } finally {
@@ -116,6 +124,7 @@ public class Main {
                     try {
                         if (database.containsKey(clientCommand.getKey())) {
                             database.remove(clientCommand.getKey());
+                            saveDatabase();
                             response = "OK";
                             fullResponse.put("response", response);
                         } else {
