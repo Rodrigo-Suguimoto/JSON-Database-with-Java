@@ -3,6 +3,8 @@ package client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.net.InetAddress;
 import java.net.Socket;
 import com.beust.jcommander.JCommander;
@@ -16,6 +18,8 @@ public class Main {
     String key;
     @Parameter(names={"--value", "-v"})
     String value = "";
+    @Parameter(names={"--input", "-in"})
+    String input;
 
     public static void main(String... argv) {
         Main main = new Main();
@@ -26,6 +30,18 @@ public class Main {
 
         String address = "127.0.0.1";
         int port = 23456;
+        String type = main.type;
+        String key = main.key;
+        String value = main.value;
+        String fileName = main.input;
+
+        handleUserInput(type, key, value, fileName);
+    }
+
+    private static void handleUserInput(String type, String key, String value, String fileName) {
+        String address = "127.0.0.1";
+        int port = 23456;
+
         try {
             InetAddress inetAddress = InetAddress.getByName(address);
             try (Socket socket = new Socket(inetAddress, port);
@@ -33,10 +49,6 @@ public class Main {
                  DataInputStream input = new DataInputStream(socket.getInputStream());
             ) {
                 System.out.println("Client started!");
-
-                String type = main.type;
-                String key = main.key;
-                String value = main.value;
 
                 Request request = new Request(type);
                 switch (type) {
