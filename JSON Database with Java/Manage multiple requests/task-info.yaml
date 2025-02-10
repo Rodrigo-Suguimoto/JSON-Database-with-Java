@@ -672,6 +672,12 @@ files:
   - name: src/client/data/testSet.json
     visible: true
     learner_created: true
+  - name: src/server/command/Command.java
+    visible: true
+    learner_created: true
+  - name: src/server/command/DatabaseReceiver.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5494#comment
 status: Unchecked
 record: -1
