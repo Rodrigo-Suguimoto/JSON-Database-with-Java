@@ -678,6 +678,35 @@ files:
   - name: src/server/command/DatabaseReceiver.java
     visible: true
     learner_created: true
+  - name: src/server/command/GetCommand.java
+    visible: true
+    learner_created: true
+  - name: src/server/command/SetCommand.java
+    visible: true
+    learner_created: true
+  - name: src/server/command/DeleteCommand.java
+    visible: true
+    learner_created: true
+  - name: src/server/command/GetCommand.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/command/DatabaseReceiver.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/command/DeleteCommand.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/command/SetCommand.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/command/Command.class
+    visible: true
+    is_binary: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5494#comment
 status: Unchecked
 record: -1

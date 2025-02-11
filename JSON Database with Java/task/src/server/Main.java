@@ -17,6 +17,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.google.gson.Gson;
 import shared.Request;
+import server.command.Command;
+import server.command.DatabaseReceiver;
+import server.command.DeleteCommand;
+import server.command.GetCommand;
+import server.command.SetCommand;
 
 public class Main {
 
@@ -64,7 +69,7 @@ public class Main {
         }
     }
 
-    private static void saveDatabase() {
+    public static void saveDatabase() {
         String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
         Gson gson = new Gson();
         try (FileWriter writer = new FileWriter(pathToDb)) {
@@ -89,56 +94,24 @@ public class Main {
                 return;
             }
 
-            String response = "ERROR";
-            Map<String, String> fullResponse = new HashMap<>();
+            DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
+            Command command = null;
 
-            switch(clientCommand.getType()) {
+            switch(clientCommand.getType().toLowerCase()) {
                 case "get":
-                    readLock.lock();
-                    try {
-                        if (database.containsKey(clientCommand.getKey())) {
-                            response = "OK";
-                            fullResponse.put("response", response);
-                            fullResponse.put("value", database.get(clientCommand.getKey()));
-                        } else {
-                            fullResponse.put("response", response);
-                            fullResponse.put("reason", "No such key");
-                        }
-                    } finally {
-                        readLock.unlock();
-                    }
+                    command = new GetCommand(receiver, clientCommand.getKey());
                     break;
                 case "set":
-                    writeLock.lock();
-                    try {
-                        database.put(clientCommand.getKey(), clientCommand.getValue());
-                        saveDatabase();
-                        response = "OK";
-                        fullResponse.put("response", response);
-                    } finally {
-                        writeLock.unlock();
-                    }
+                    command = new SetCommand(receiver, clientCommand.getKey(), clientCommand.getValue());
                     break;
                 case "delete":
-                    writeLock.lock();
-                    try {
-                        if (database.containsKey(clientCommand.getKey())) {
-                            database.remove(clientCommand.getKey());
-                            saveDatabase();
-                            response = "OK";
-                            fullResponse.put("response", response);
-                        } else {
-                            fullResponse.put("response", response);
-                            fullResponse.put("reason", "No such key");
-                        }
-                    } finally {
-                        writeLock.unlock();
-                    }
+                    command = new DeleteCommand(receiver, clientCommand.getKey());
                     break;
             }
 
-            String fullResponseAsJson = new Gson().toJson(fullResponse);
-            output.writeUTF(fullResponseAsJson);
+            Map<String, String> response = command.execute();
+            String responseAsJson = new Gson().toJson(response);
+            output.writeUTF(responseAsJson);
 
         } catch (IOException e) {
             System.err.println("Error while handling client connection: " + e.getMessage());

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
-import com.google.gson.Gson;
 import server.Main;
 
 public class DatabaseReceiver {
@@ -20,7 +19,7 @@ public class DatabaseReceiver {
 
     public Map<String, String> get(String key) {
         Map<String, String> response = new HashMap<>();
-        readLock.lock;
+        readLock.lock();
         try {
             if (database.containsKey(key)) {
                 response.put("response", "OK");
@@ -31,6 +30,37 @@ public class DatabaseReceiver {
             }
         } finally {
             readLock.unlock();
+        }
+        return response;
+    }
+
+    public Map<String, String> set(String key, String value) {
+        Map<String, String> response = new HashMap<>();
+        writeLock.lock();
+        try {
+            database.put(key, value);
+            Main.saveDatabase();
+            response.put("response", "OK");
+        } finally {
+            writeLock.unlock();
+        }
+        return response;
+    }
+
+    public Map<String, String> delete(String key) {
+        Map<String, String> response = new HashMap<>();
+        writeLock.lock();
+        try {
+            if (database.containsKey(key)) {
+                database.remove(key);
+                Main.saveDatabase();
+                response.put("response", "OK");
+            } else {
+                response.put("response", "ERROR");
+                response.put("reason", "No such key");
+            }
+        } finally {
+            writeLock.unlock();
         }
         return response;
     }
