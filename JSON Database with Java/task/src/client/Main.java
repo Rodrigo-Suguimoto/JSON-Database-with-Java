@@ -2,6 +2,7 @@ package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,49 +43,53 @@ public class Main {
         String address = "127.0.0.1";
         int port = 23456;
 
-        if (fileName != null) {
-            try {
-                String pathToFile = System.getProperty("user.dir") + "/client/data/" + fileName;
-                String jsonRequest = Files.readString(Paths.get(fileName));
-                System.out.println(jsonRequest);
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-        }
+        try {
+            InetAddress inetAddress = InetAddress.getByName(address);
+            try (Socket socket = new Socket(inetAddress, port);
+                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+                 DataInputStream input = new DataInputStream(socket.getInputStream());
+            ) {
+                System.out.println("Client started!");
 
-//        try {
-//            InetAddress inetAddress = InetAddress.getByName(address);
-//            try (Socket socket = new Socket(inetAddress, port);
-//                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-//                 DataInputStream input = new DataInputStream(socket.getInputStream());
-//            ) {
-//                System.out.println("Client started!");
-//
-//                Request request = new Request(type);
-//                switch (type) {
-//                    case "exit":
-//                        request = new Request(type);
-//                        break;
-//                    case "get":
-//                    case "delete":
-//                        request = new Request(type, key);
-//                        break;
-//                    case "set":
-//                        request = new Request(type, key, value);
-//                        break;
-//                }
-//
-//                String requestAsJson = Request.serializeToGson(request);
-//                System.out.println("Sent: " + requestAsJson);
-//                output.writeUTF(requestAsJson);
-//
-//                if (!type.equalsIgnoreCase("exit")) {
-//                    String serverResponse = input.readUTF();
-//                    System.out.println("Received: " + serverResponse);
-//                }
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Unexpected IO error: " + e.getMessage());
-//        }
+                if (fileName != null) {
+                    try {
+                        String pathToFile = System.getProperty("user.dir") + "/client/data/" + fileName;
+                        String jsonRequest =  Files.readString(Paths.get(pathToFile));
+                        output.writeUTF(jsonRequest);
+                    } catch (IOException e) {
+                        System.err.println(e.getMessage());
+                    }
+                } else {
+                    Request request = new Request(type);
+                    switch (type) {
+                        case "exit":
+                            request = new Request(type);
+                            break;
+                        case "get":
+                        case "delete":
+                            request = new Request(type, key);
+                            break;
+                        case "set":
+                            request = new Request(type, key, value);
+                            break;
+                    }
+
+                    String requestAsJson = Request.serializeToGson(request);
+                    System.out.println("Sent: " + requestAsJson);
+                    output.writeUTF(requestAsJson);
+                }
+
+                try {
+                    String serverResponse = input.readUTF();
+                } catch (EOFException e) {
+                    // Do nothing, silently handle the server closure
+                } catch (IOException e) {
+                    // Do nothing, silently handle the server closure
+                }
+
+            }
+        } catch (IOException e) {
+            System.err.println("Unexpected IO error: " + e.getMessage());
+        }
     }
 }

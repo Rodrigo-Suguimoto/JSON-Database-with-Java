@@ -1,4 +1,3 @@
-<h2>Executors</h2>
 <div class="step-text">
 <p>We've already learned how to create threads by extending the <code class="language-java">Thread</code> class or implementing the <code class="language-java">Runnable</code> interface. Both ways allow you to create an object that represents a thread and start it to perform a piece of code in a separated thread. While it is easy to create several threads and start them, it becomes a problem when your application has hundreds or even thousands of threads running concurrently.</p>
 <p>In addition, <code class="language-java">Thread</code> is a quite low-level class and mixing it with the high-level code of your application may lead to unreadable code and poor architecture in the future. It may also produce some well-known errors such as invoking <code class="language-java">run()</code> instead of <code class="language-java">start()</code>.</p>

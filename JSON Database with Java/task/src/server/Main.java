@@ -45,8 +45,12 @@ public class Main {
                 while (isRunning) {
                     try {
                         Socket socket = server.accept();
-                        executor.submit(() -> handleClient(socket, database, readLock, writeLock, executor));
+                        executor.submit(() -> handleClient(socket, server, database, readLock, writeLock, executor));
                     } catch (IOException e) {
+                        if (!isRunning) {
+                            // Suppress the error if the server was intentionally stopped
+                            break;
+                        }
                         System.out.println("Error while handling client connection " + e.getMessage());
                     }
                 }
@@ -79,7 +83,7 @@ public class Main {
         }
     }
 
-    private static void handleClient(Socket socket, Map<String, String> database,
+    private static void handleClient(Socket socket, ServerSocket server, Map<String, String> database,
                                      Lock readLock, Lock writeLock, ExecutorService executor) {
         try (socket;
             DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -90,14 +94,15 @@ public class Main {
 
             if (clientCommand.getType().equalsIgnoreCase("exit")) {
                 isRunning = false;
-                executor.shutdown();
+                server.close();
+                executor.shutdownNow();
                 return;
             }
 
             DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
             Command command = null;
 
-            switch(clientCommand.getType().toLowerCase()) {
+            switch (clientCommand.getType().toLowerCase()) {
                 case "get":
                     command = new GetCommand(receiver, clientCommand.getKey());
                     break;
