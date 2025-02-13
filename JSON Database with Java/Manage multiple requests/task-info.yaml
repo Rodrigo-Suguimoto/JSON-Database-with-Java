@@ -42,9 +42,24 @@ files:
     is_binary: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5494#comment
-status: Unchecked
+status: Failed
 feedback:
-  message: Please update your SDK to version 21. <a href="open_module_settings">Open
-    Project Settings</a>.
-  time: "Thu, 13 Feb 2025 10:35:26 UTC"
+  message: |2
+
+    FAILURE: Build failed with an exception.
+
+    * What went wrong:
+    A problem occurred configuring root project &#39;JSON-Database-with-Java&#39;.
+    &gt; Could not open proj generic class cache for build file &#39;/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/build.gradle&#39; (/Users/rodrigo.suguimoto/.gradle/caches/7.3.3/scripts/7k0nr01txasa9wdwmuqa5p35u).
+       &gt; BUG! exception in phase &#39;semantic analysis&#39; in source unit &#39;_BuildScript_&#39; Unsupported class file major version 65
+
+    * Try:
+    &gt; Run with --stacktrace option to get the stack trace.
+    &gt; Run with --info or --debug option to get more log output.
+    &gt; Run with --scan to get full insights.
+
+    * Get more help at https://help.gradle.org
+
+    BUILD FAILED in 2s
+  time: "Thu, 13 Feb 2025 10:49:42 UTC"
 record: -1
