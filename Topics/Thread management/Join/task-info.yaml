@@ -1,5 +1,12 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: The current thread waits for the completion of <b>thread</b>
+  - text: It stops the current thread until <b>continue</b> is called
+  - text: Threads will be merged into one
+  - text: "It's impossible to call the join on an object of another thread, only on\
+    \ the current thread"
+  - text: <b>thread</b> waits for the completion of the current thread
 files:
   - name: src/Task.java
     visible: true

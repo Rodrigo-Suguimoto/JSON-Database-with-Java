@@ -1,5 +1,16 @@
 type: choice
-is_multiple_choice: false
+is_multiple_choice: true
+options:
+  - text: The setColor() method can include additional logic other than assigning the
+      value to &#x27;color&#x27;.
+  - text: The getColor() method performs a similar task to setting the &#x27;color&#x27;
+      variable value.
+  - text: The variable &#x27;color&#x27; is not accessible outside the Car class due
+      to the private access modifier.
+  - text: The setColor() method allows us to encapsulate the process of setting the
+      value to the &#x27;color&#x27; variable.
+  - text: The private access modifier for the &#x27;color&#x27; variable allows direct
+      access from other classes.
 files:
   - name: src/Task.java
     visible: true

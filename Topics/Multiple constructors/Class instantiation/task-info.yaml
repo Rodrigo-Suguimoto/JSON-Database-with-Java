@@ -1,5 +1,12 @@
 type: choice
-is_multiple_choice: false
+is_multiple_choice: true
+options:
+  - text: SomeClass instance = SomeClass();
+  - text: SomeClass instance = new SomeClass();
+  - text: SomeClass instance = SomeClass(5);
+  - text: "SomeClass instance = new SomeClass(new int[] {1 , 2});"
+  - text: SomeClass instance = new SomeClass(2);
+  - text: "SomeClass instance = new SomeClass(2, 3);"
 files:
   - name: src/Task.java
     visible: true

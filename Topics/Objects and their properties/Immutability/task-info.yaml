@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: A class always has the same number of objects
+  - text: A class does not have objects
+  - text: The value of an object of this class cannot be changed
+  - text: An object of a class cannot be copied
 files:
   - name: src/Task.java
     visible: true

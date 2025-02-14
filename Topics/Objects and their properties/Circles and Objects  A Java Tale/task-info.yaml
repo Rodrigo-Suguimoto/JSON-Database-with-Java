@@ -1,5 +1,12 @@
 type: choice
-is_multiple_choice: false
+is_multiple_choice: true
+options:
+  - text: E. The Circle class has an object constructor with a parameter
+  - text: B. circle1 and circle2 are objects of the TestCircle class
+  - text: A. There are two instances of the Circle class
+  - text: D. The area1 and area2 variables store the same value
+  - text: C. Both circle1 and circle2 have an attribute called radius and a method called
+      getArea()
 files:
   - name: src/Task.java
     visible: true

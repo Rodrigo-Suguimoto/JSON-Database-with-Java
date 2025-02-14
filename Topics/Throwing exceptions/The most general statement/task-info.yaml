@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: any class
+  - text: the <b>Exception</b> class and its subclasses
+  - text: the <b>Throwable</b> class and its subclasses
+  - text: the <b>RuntimeException</b> class and its subclasses
 files:
   - name: src/Task.java
     visible: true

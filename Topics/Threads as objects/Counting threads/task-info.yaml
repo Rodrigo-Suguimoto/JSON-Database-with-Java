@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: from one to number of processor cores
+  - text: exactly one
+  - text: at least one
+  - text: exactly number of processor cores
 files:
   - name: src/Task.java
     visible: true

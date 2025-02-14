@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: any outer sources
+  - text: database connections
+  - text: web connections
+  - text: files
 files:
   - name: src/Task.java
     visible: true

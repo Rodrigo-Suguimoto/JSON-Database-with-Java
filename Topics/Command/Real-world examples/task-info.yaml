@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: Handling DOM events
+  - text: Listeners in Java Swing API
+  - text: Providing search results
+  - text: The undo functionality
 files:
   - name: src/Task.java
     visible: true

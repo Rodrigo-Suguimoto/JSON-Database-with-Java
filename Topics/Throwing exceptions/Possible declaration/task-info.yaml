@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: public static void method() throws Exception
+  - text: public static Exception method()
+  - text: public static void method()
+  - text: public static void method() throw Exception
 files:
   - name: src/Task.java
     visible: true

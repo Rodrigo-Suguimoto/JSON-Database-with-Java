@@ -1,5 +1,11 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: release
+  - text: destruct
+  - text: flush
+  - text: close
+  - text: destroy
 files:
   - name: src/Task.java
     visible: true

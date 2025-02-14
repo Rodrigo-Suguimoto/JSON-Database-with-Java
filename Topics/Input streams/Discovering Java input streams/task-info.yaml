@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: Prints &#x27;Jav&#x27;.
+  - text: Prints &#x27;Java&#x27;.
+  - text: An exception will be thrown.
+  - text: Prints &#x27;Streams&#x27;.
 files:
   - name: src/Task.java
     visible: true

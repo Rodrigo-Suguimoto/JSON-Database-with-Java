@@ -1,5 +1,11 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: getTitle
+  - text: setTitle
+  - text: readTitle
+  - text: title
+  - text: isTitle
 files:
   - name: src/Task.java
     visible: true

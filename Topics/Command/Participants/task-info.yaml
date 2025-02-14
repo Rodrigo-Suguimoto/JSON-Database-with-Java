@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: Receiver
+  - text: Invoker
+  - text: Command
+  - text: Container
 files:
   - name: src/Task.java
     visible: true

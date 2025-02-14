@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: Runtime.currentThread();
+  - text: Thread.currentThread();
+  - text: this.currentThread();
+  - text: Object.currentThread();
 files:
   - name: src/Task.java
     visible: true

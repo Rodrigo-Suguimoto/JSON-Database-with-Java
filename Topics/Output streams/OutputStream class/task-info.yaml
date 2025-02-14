@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: close()
+  - text: "write(byte[] b)"
+  - text: "append(byte[] b)"
+  - text: flush()
 files:
   - name: src/Task.java
     visible: true

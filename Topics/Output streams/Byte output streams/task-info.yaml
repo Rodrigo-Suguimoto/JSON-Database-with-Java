@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: writing bytes
+  - text: writing chars
+  - text: writing strings
+  - text: all of the above
 files:
   - name: src/Task.java
     visible: true

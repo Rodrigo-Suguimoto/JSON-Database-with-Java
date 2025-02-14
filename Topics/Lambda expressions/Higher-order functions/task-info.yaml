@@ -1,5 +1,10 @@
 type: choice
-is_multiple_choice: false
+is_multiple_choice: true
+options:
+  - text: int method(int n)
+  - text: "Function&lt;T, R&gt; method(int n)"
+  - text: "void method(Function&lt;T, R&gt; f)"
+  - text: "Function&lt;T, R&gt; method(Function&lt;T, R&gt; f,  int n)"
 files:
   - name: src/Task.java
     visible: true

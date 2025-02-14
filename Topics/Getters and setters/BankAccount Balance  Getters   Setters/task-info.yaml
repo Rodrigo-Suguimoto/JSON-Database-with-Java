@@ -1,5 +1,15 @@
 type: choice
-is_multiple_choice: false
+is_multiple_choice: true
+options:
+  - text: "The setter method allows encapsulation of validation, preventing negative\
+    \ balance values"
+  - text: Getter and setter methods are unnecessary and only decrease the performance
+      of the code
+  - text: The getter method allows read access to the private balance field
+  - text: The private balance field can be directly accessed and modified by any code
+      outside the BankAccount class
+  - text: The setter method can be bypassed by directly modifying the balance field
+      within the BankAccount class
 files:
   - name: src/Task.java
     visible: true

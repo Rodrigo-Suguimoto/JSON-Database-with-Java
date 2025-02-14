@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: -&gt;
+  - text: .
+  - text: The instance of operator
+  - text: =
 files:
   - name: src/Task.java
     visible: true

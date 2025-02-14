@@ -1,5 +1,10 @@
 type: choice
 is_multiple_choice: false
+options:
+  - text: 7
+  - text: 8
+  - text: 0
+  - text: 9
 files:
   - name: src/Task.java
     visible: true

@@ -50,7 +50,7 @@ feedback:
 
     * What went wrong:
     A problem occurred configuring root project &#39;JSON-Database-with-Java&#39;.
-    &gt; Could not open proj generic class cache for build file &#39;/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/build.gradle&#39; (/Users/rodrigo.suguimoto/.gradle/caches/7.3.3/scripts/7k0nr01txasa9wdwmuqa5p35u).
+    &gt; Could not open proj generic class cache for build file &#39;/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/build.gradle&#39; (/Users/rodrigo.suguimoto/.gradle/caches/7.3.3/scripts/a8l5d5tz331t2zdwn5djgnz0u).
        &gt; BUG! exception in phase &#39;semantic analysis&#39; in source unit &#39;_BuildScript_&#39; Unsupported class file major version 65
 
     * Try:
@@ -60,6 +60,6 @@ feedback:
 
     * Get more help at https://help.gradle.org
 
-    BUILD FAILED in 2s
-  time: "Thu, 13 Feb 2025 10:49:42 UTC"
+    BUILD FAILED in 3s
+  time: "Fri, 14 Feb 2025 11:23:41 UTC"
 record: -1

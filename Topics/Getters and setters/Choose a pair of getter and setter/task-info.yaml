@@ -1,5 +1,11 @@
 type: choice
-is_multiple_choice: false
+is_multiple_choice: true
+options:
+  - text: getCompleted
+  - text: setCompleted
+  - text: readCompleted
+  - text: isCompleted
+  - text: completed
 files:
   - name: src/Task.java
     visible: true
