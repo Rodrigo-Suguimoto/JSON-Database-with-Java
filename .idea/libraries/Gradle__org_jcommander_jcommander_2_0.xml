@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jcommander:jcommander:2.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.jcommander" artifactId="jcommander" version="2.0" baseVersion="2.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jcommander/jcommander/2.0/381dbd9d28285b4f79179cf1411789b1cc4b7a8e/jcommander-2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

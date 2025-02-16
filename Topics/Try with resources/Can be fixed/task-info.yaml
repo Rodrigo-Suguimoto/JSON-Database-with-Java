@@ -2,27 +2,6 @@ type: code
 files:
   - name: src/Main.java
     visible: true
-    text: |-
-      import java.io.BufferedReader;
-      import java.io.IOException;
-      import java.io.InputStreamReader;
-      
-      class Main {
-          public static String main(String[] args) {
-      
-              String language;
-              BufferedReader buffReader;
-              try {
-                  BufferedReader buffReader = new BufferedReader(new InputStreamReader(System.in));
-                  language = buffReader.readLine();
-                  System.out.println("I'm learning " + language);
-              } catch (IOException e) {
-                  e.printStackTrace();
-              } finally {
-                  buffReader.close();
-              }
-          }
-      }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/25729#comment
 status: Solved
