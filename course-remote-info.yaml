@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/23048/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Thu, 30 Jan 2025 09:44:20 UTC"
+update_date: "Sun, 16 Feb 2025 13:58:06 UTC"
 stages:
   - id: 348
     step: 5490
@@ -19,7 +19,7 @@ stages:
     is_completed: true
   - id: 352
     step: 5494
-    is_completed: false
+    is_completed: true
   - id: 353
     step: 5495
     is_completed: false
@@ -69,10 +69,10 @@ topics:
       theory_id: 3503
     - title: One-line condition with ternary operator
       theory_id: 3506
-    - title: While and do-while loops
-      theory_id: 3498
     - title: For loop
       theory_id: 3505
+    - title: While and do-while loops
+      theory_id: 3498
     - title: Break and continue. Branching
       theory_id: 3507
     - title: Declaring methods
@@ -99,6 +99,8 @@ topics:
       theory_id: 3536
     - title: First glance at exceptions
       theory_id: 3497
+    - title: What is object-oriented programming
+      theory_id: 3614
     - title: Hierarchy of exceptions
       theory_id: 3570
     - title: What are bugs
@@ -146,18 +148,16 @@ topics:
       theory_id: 7929
     - title: Constants. Final variables
       theory_id: 7427
-    - title: Exception handling
-      theory_id: 3552
     - title: NullPointerException
       theory_id: 1945
+    - title: Exception handling
+      theory_id: 3552
     - title: Throwing exceptions
       theory_id: 3553
     - title: File class
       theory_id: 3635
     - title: Reading files
       theory_id: 3636
-    - title: What is object-oriented programming
-      theory_id: 3614
     - title: "Synchronous, asynchronous, parallel"
       theory_id: 9332
     - title: Processes and threads

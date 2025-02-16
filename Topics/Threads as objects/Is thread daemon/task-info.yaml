@@ -3,12 +3,6 @@ files:
   - name: src/Main.java
     visible: true
     highlight_level: NONE
-    text: |-
-      class ThreadUtil {
-          public static void printIfDaemon(Thread thread) {
-              // implement logic
-          }
-      }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/13221#comment
 status: Solved
