@@ -15,6 +15,32 @@ files:
   - name: test/JsonRequestBuilder.java
     visible: false
     learner_created: false
+  - name: src/client/Main.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/shared/Request.java
+    visible: true
+    learner_created: true
+  - name: src/server/Main.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/shared/Request.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/ParsedCommand.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/Main$1.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/data/db.json
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
 status: Unchecked
 record: -1
