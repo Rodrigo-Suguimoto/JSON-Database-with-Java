@@ -55,24 +55,19 @@ public class Main {
                     try {
                         String pathToFile = System.getProperty("user.dir") + "/client/data/" + fileName;
                         String jsonRequest =  Files.readString(Paths.get(pathToFile));
+                        System.out.println("Sent: " + jsonRequest);
                         output.writeUTF(jsonRequest);
                     } catch (IOException e) {
                         System.err.println(e.getMessage());
                     }
                 } else {
                     Request request = new Request(type);
-                    switch (type) {
-                        case "exit":
-                            request = new Request(type);
-                            break;
-                        case "get":
-                        case "delete":
-                            request = new Request(type, key);
-                            break;
-                        case "set":
-                            request = new Request(type, key, value);
-                            break;
-                    }
+                    request = switch (type) {
+                        case "exit" -> new Request(type);
+                        case "get", "delete" -> new Request(type, key);
+                        case "set" -> new Request(type, key, value);
+                        default -> request;
+                    };
 
                     String requestAsJson = Request.serializeToGson(request);
                     System.out.println("Sent: " + requestAsJson);
@@ -82,8 +77,6 @@ public class Main {
                 try {
                     String serverResponse = input.readUTF();
                 } catch (EOFException e) {
-                    // Do nothing, silently handle the server closure
-                } catch (IOException e) {
                     // Do nothing, silently handle the server closure
                 }
 
