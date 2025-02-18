@@ -76,6 +76,7 @@ public class Main {
 
                 try {
                     String serverResponse = input.readUTF();
+                    System.out.println("Received: " + serverResponse);
                 } catch (EOFException e) {
                     // Do nothing, silently handle the server closure
                 }
