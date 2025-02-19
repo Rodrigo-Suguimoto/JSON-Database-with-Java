@@ -2,18 +2,34 @@ package shared;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Request {
-    private String type;
-    private String key;
+    private final String type;
+    private List<String> key;
     private String value = null;
 
     public Request(String type, String key, String value) {
+        this.type = type;
+        this.key = new ArrayList<>();
+        this.key.add(key);
+        this.value = value;
+    }
+
+    public Request(String type, List<String> key, String value) {
         this.type = type;
         this.key = key;
         this.value = value;
     }
 
     public Request(String type, String key) {
+        this.type = type;
+        this.key = new ArrayList<>();
+        this.key.add(key);
+    }
+
+    public Request(String type, List<String> key) {
         this.type = type;
         this.key = key;
     }
@@ -26,7 +42,7 @@ public class Request {
         return type;
     }
 
-    public String getKey() {
+    public List<String> getKey() {
         return key;
     }
 

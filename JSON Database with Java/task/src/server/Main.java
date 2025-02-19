@@ -91,6 +91,7 @@ public class Main {
         ) {
 
             Request clientCommand = Request.deserializeGson(input.readUTF());
+            System.out.println(clientCommand.getKey());
 
             if (clientCommand.getType().equalsIgnoreCase("exit")) {
                 isRunning = false;
@@ -99,24 +100,24 @@ public class Main {
                 return;
             }
 
-            DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
-            Command command = null;
-
-            switch (clientCommand.getType().toLowerCase()) {
-                case "get":
-                    command = new GetCommand(receiver, clientCommand.getKey());
-                    break;
-                case "set":
-                    command = new SetCommand(receiver, clientCommand.getKey(), clientCommand.getValue());
-                    break;
-                case "delete":
-                    command = new DeleteCommand(receiver, clientCommand.getKey());
-                    break;
-            }
-
-            Map<String, String> response = command.execute();
-            String responseAsJson = new Gson().toJson(response);
-            output.writeUTF(responseAsJson);
+//            DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
+//            Command command = null;
+//
+//            switch (clientCommand.getType().toLowerCase()) {
+//                case "get":
+//                    command = new GetCommand(receiver, clientCommand.getKey());
+//                    break;
+//                case "set":
+//                    command = new SetCommand(receiver, clientCommand.getKey(), clientCommand.getValue());
+//                    break;
+//                case "delete":
+//                    command = new DeleteCommand(receiver, clientCommand.getKey());
+//                    break;
+//            }
+//
+//            Map<String, String> response = command.execute();
+//            String responseAsJson = new Gson().toJson(response);
+//            output.writeUTF(responseAsJson);
 
         } catch (IOException e) {
             System.err.println("Error while handling client connection: " + e.getMessage());
