@@ -89,9 +89,10 @@ public class Main {
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream())
         ) {
-
+            System.out.println(input.readUTF());
             Request clientCommand = Request.deserializeGson(input.readUTF());
             System.out.println(clientCommand.getKey());
+            System.out.println(clientCommand.getValue());
 
             if (clientCommand.getType().equalsIgnoreCase("exit")) {
                 isRunning = false;
