@@ -3,14 +3,21 @@ package shared;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.annotations.JsonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Request {
-    private final String type;
+    private String type;
+
+    @JsonAdapter(StringListTypeAdapter.class)
     private List<String> key;
+
     private JsonElement value = null;
+
+    // No-arg constructor needed for Gson
+    public Request() {}
 
     // Constructor for a single key and a JsonElement value
     public Request(String type, String key, JsonElement value) {

@@ -50,8 +50,15 @@ files:
   - name: src/client/data/updateFile.json
     visible: true
     learner_created: true
-  - name: src/shared/StringListDeserializer.java
+  - name: src/shared/StringListTypeAdapter.java
     visible: true
+    learner_created: true
+  - name: src/client/data/deleteFile.json
+    visible: true
+    learner_created: true
+  - name: src/shared/StringListTypeAdapter.class
+    visible: true
+    is_binary: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
 status: Unchecked
