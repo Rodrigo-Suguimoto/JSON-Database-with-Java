@@ -1,5 +1,7 @@
 package server.command;
 
+import com.google.gson.JsonElement;
+
 import java.util.Map;
 
 public class DeleteCommand implements Command {
@@ -12,7 +14,7 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public Map<String, String> execute() {
+    public Map<String, JsonElement> execute() {
         return receiver.delete(key);
     }
 }
