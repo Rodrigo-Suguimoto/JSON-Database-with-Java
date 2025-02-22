@@ -43,8 +43,8 @@ public class DatabaseReceiver {
         return response;
     }
 
-    public Map<String, String> set(String key, String value) {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, JsonElement> set(List<String> keys, String value) {
+        Map<String, JsonElement> response = new HashMap<>();
         writeLock.lock();
         try {
             database.put(key, value);
@@ -56,7 +56,7 @@ public class DatabaseReceiver {
         return response;
     }
 
-    public Map<String, String> delete(String key) {
+    public Map<String, String> delete(List<String> keys) {
         Map<String, String> response = new HashMap<>();
         writeLock.lock();
         try {
@@ -73,4 +73,5 @@ public class DatabaseReceiver {
         }
         return response;
     }
+
 }

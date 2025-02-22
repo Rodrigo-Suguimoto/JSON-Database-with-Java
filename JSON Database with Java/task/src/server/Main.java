@@ -21,9 +21,7 @@ import com.google.gson.Gson;
 import shared.Request;
 import server.command.Command;
 import server.command.DatabaseReceiver;
-import server.command.DeleteCommand;
 import server.command.GetCommand;
-import server.command.SetCommand;
 
 public class Main {
 
@@ -100,9 +98,12 @@ public class Main {
                 return;
             }
 
+            System.out.println(clientCommand.getType());
+            System.out.println(clientCommand.getKeys());
+
             DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
             Command command = switch (clientCommand.getType().toLowerCase()) {
-                case "get" -> new GetCommand(receiver, clientCommand.getKey());
+                case "get" -> new GetCommand(receiver, clientCommand.getKeys());
 //                case "set" -> new SetCommand(receiver, clientCommand.getKey(), clientCommand.getValue());
 //                case "delete" -> new DeleteCommand(receiver, clientCommand.getKey());
                 default -> null;

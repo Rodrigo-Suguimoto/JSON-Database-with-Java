@@ -12,7 +12,7 @@ public class Request {
     private String type;
 
     @JsonAdapter(StringListTypeAdapter.class)
-    private List<String> key;
+    private List<String> keys;
 
     private JsonElement value = null;
 
@@ -22,8 +22,8 @@ public class Request {
     // Constructor for a single key and a JsonElement value
     public Request(String type, String key, JsonElement value) {
         this.type = type;
-        this.key = new ArrayList<>();
-        this.key.add(key);
+        this.keys = new ArrayList<>();
+        this.keys.add(key);
         this.value = value;
     }
 
@@ -33,26 +33,28 @@ public class Request {
     }
 
     // Constructor for multiple keys and a JsonElement value
-    public Request(String type, List<String> key, JsonElement value) {
+    public Request(String type, List<String> keys, JsonElement value) {
         this.type = type;
-        this.key = key;
+        this.keys = keys;
         this.value = value;
     }
 
     // Overloaded Constructor for multiple keys and a String value
-    public Request(String type, List<String> key, String value) {
-        this(type, key, new JsonPrimitive(value));
+    public Request(String type, List<String> keys, String value) {
+        this(type, keys, new JsonPrimitive(value));
     }
 
+    // Constructor for a single key and no value
     public Request(String type, String key) {
         this.type = type;
-        this.key = new ArrayList<>();
-        this.key.add(key);
+        this.keys = new ArrayList<>();
+        this.keys.add(key);
     }
 
-    public Request(String type, List<String> key) {
+    // Constructor for multiple keys and no value
+    public Request(String type, List<String> keys) {
         this.type = type;
-        this.key = key;
+        this.keys = keys;
     }
 
     public Request(String type) {
@@ -63,8 +65,8 @@ public class Request {
         return type;
     }
 
-    public List<String> getKey() {
-        return key;
+    public List<String> getKeys() {
+        return keys;
     }
 
     public JsonElement getValue() {
