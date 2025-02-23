@@ -43,30 +43,33 @@ public class DatabaseReceiver {
         return response;
     }
 
-    public Map<String, JsonElement> set(List<String> keys, String value) {
+    public Map<String, JsonElement> set(List<String> keys, JsonElement value) {
         Map<String, JsonElement> response = new HashMap<>();
         writeLock.lock();
         try {
-            database.put(key, value);
+            database.put(keys.getFirst(), value);
             Main.saveDatabase();
-            response.put("response", "OK");
+            response.put("response", new JsonPrimitive("OK"));
         } finally {
             writeLock.unlock();
         }
         return response;
     }
 
-    public Map<String, String> delete(List<String> keys) {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, JsonElement> delete(List<String> keys) {
+        Map<String, JsonElement> response = new HashMap<>();
         writeLock.lock();
         try {
-            if (database.containsKey(key)) {
-                database.remove(key);
-                Main.saveDatabase();
-                response.put("response", "OK");
-            } else {
-                response.put("response", "ERROR");
-                response.put("reason", "No such key");
+            for (String key : keys) {
+                if (!database.containsKey(key)) {
+                    response.put("response", new JsonPrimitive("ERROR"));
+                    response.put("reason", new JsonPrimitive("No such key"));
+                    return response;
+                } else {
+                    database.remove(key);
+                    Main.saveDatabase();
+                    response.put("response", new JsonPrimitive("OK"));
+                }
             }
         } finally {
             writeLock.unlock();

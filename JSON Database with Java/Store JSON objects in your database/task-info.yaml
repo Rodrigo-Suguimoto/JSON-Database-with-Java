@@ -60,15 +60,15 @@ files:
     visible: true
     is_binary: true
     learner_created: true
-  - name: src/client/data/test.json
-    visible: true
-    learner_created: true
   - name: src/server/JsonLookup.java
     visible: true
     learner_created: true
   - name: src/server/JsonLookup.class
     visible: true
     is_binary: true
+    learner_created: true
+  - name: src/client/data/secondGetFile.json
+    visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
 status: Unchecked

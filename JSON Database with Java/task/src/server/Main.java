@@ -18,10 +18,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.google.gson.Gson;
+import server.command.*;
 import shared.Request;
-import server.command.Command;
-import server.command.DatabaseReceiver;
-import server.command.GetCommand;
 
 public class Main {
 
@@ -104,8 +102,8 @@ public class Main {
             DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
             Command command = switch (clientCommand.getType().toLowerCase()) {
                 case "get" -> new GetCommand(receiver, clientCommand.getKeys());
-//                case "set" -> new SetCommand(receiver, clientCommand.getKey(), clientCommand.getValue());
-//                case "delete" -> new DeleteCommand(receiver, clientCommand.getKey());
+                case "set" -> new SetCommand(receiver, clientCommand.getKeys(), clientCommand.getValue());
+                case "delete" -> new DeleteCommand(receiver, clientCommand.getKeys());
                 default -> null;
             };
 

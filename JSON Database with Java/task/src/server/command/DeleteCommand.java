@@ -3,18 +3,19 @@ package server.command;
 import com.google.gson.JsonElement;
 
 import java.util.Map;
+import java.util.List;
 
 public class DeleteCommand implements Command {
     private final DatabaseReceiver receiver;
-    private final String key;
+    private final List<String> keys;
 
-    public DeleteCommand(DatabaseReceiver receiver, String key) {
+    public DeleteCommand(DatabaseReceiver receiver, List<String> keys) {
         this.receiver = receiver;
-        this.key = key;
+        this.keys = keys;
     }
 
     @Override
     public Map<String, JsonElement> execute() {
-        return receiver.delete(key);
+        return receiver.delete(keys);
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class Request {
     private String type;
 
+    @SerializedName("key") // Maps "key" in JSON to "keys" in Java
     @JsonAdapter(StringListTypeAdapter.class)
     private List<String> keys;
 

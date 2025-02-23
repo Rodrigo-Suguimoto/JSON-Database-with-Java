@@ -8,9 +8,9 @@ import java.util.List;
 public class SetCommand implements Command {
     private final DatabaseReceiver receiver;
     private final List<String> keys;
-    private final String value;
+    private final JsonElement value;
 
-    public SetCommand(DatabaseReceiver receiver, List<String> keys, String value) {
+    public SetCommand(DatabaseReceiver receiver, List<String> keys, JsonElement value) {
         this.receiver = receiver;
         this.keys = keys;
         this.value = value;
