@@ -96,9 +96,6 @@ public class Main {
                 return;
             }
 
-            System.out.println(clientCommand.getType());
-            System.out.println(clientCommand.getKeys());
-
             DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
             Command command = switch (clientCommand.getType().toLowerCase()) {
                 case "get" -> new GetCommand(receiver, clientCommand.getKeys());

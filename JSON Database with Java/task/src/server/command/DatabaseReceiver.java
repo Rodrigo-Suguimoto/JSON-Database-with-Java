@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import server.JsonLookup;
 import server.Main;
@@ -58,22 +59,53 @@ public class DatabaseReceiver {
 
     public Map<String, JsonElement> delete(List<String> keys) {
         Map<String, JsonElement> response = new HashMap<>();
+        String topLevelKey = keys.getFirst();
         writeLock.lock();
+
+        JsonElement current = null;
+        if (database.containsKey(topLevelKey)) {
+            if (keys.size() == 1) {
+                database.remove(topLevelKey);
+                Main.saveDatabase();
+                response.put("response", new JsonPrimitive("OK"));
+                return response;
+            }
+            current = database.get(topLevelKey);
+        } else {
+            return deleteResponseError();
+        }
+
         try {
-            for (String key : keys) {
-                if (!database.containsKey(key)) {
-                    response.put("response", new JsonPrimitive("ERROR"));
-                    response.put("reason", new JsonPrimitive("No such key"));
-                    return response;
-                } else {
-                    database.remove(key);
+            for (int i = 1; i < keys.size() - 1; i++) {
+                if (current == null || !current.isJsonObject()) {
+                    return deleteResponseError();
+                }
+                current = current.getAsJsonObject().get(keys.get(i));
+            }
+
+            if (current != null && current.isJsonObject()) {
+                JsonObject parentObj = current.getAsJsonObject();
+                String keyToRemove = keys.getLast();
+
+                if (parentObj.has(keyToRemove)) {
+                    parentObj.remove(keyToRemove);
                     Main.saveDatabase();
                     response.put("response", new JsonPrimitive("OK"));
+                    return response;
+                } else {
+                    return deleteResponseError();
                 }
             }
         } finally {
             writeLock.unlock();
         }
+        return response;
+    }
+
+    private Map<String, JsonElement> deleteResponseError() {
+        Map<String, JsonElement> response = new HashMap<>();
+        response.put("response", new JsonPrimitive("ERROR"));
+        response.put("reason", new JsonPrimitive("No such key"));
         return response;
     }
 
