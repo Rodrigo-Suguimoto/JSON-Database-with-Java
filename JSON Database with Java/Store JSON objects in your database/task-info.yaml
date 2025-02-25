@@ -41,19 +41,7 @@ files:
     visible: true
     is_binary: true
     learner_created: true
-  - name: src/client/data/setFile.json
-    visible: true
-    learner_created: true
-  - name: src/client/data/getFile.json
-    visible: true
-    learner_created: true
-  - name: src/client/data/updateFile.json
-    visible: true
-    learner_created: true
   - name: src/shared/StringListTypeAdapter.java
-    visible: true
-    learner_created: true
-  - name: src/client/data/deleteFile.json
     visible: true
     learner_created: true
   - name: src/shared/StringListTypeAdapter.class
@@ -67,9 +55,67 @@ files:
     visible: true
     is_binary: true
     learner_created: true
+  - name: src/server/data/temp.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/getFile.json
+    visible: true
+    learner_created: true
   - name: src/client/data/secondGetFile.json
     visible: true
     learner_created: true
+  - name: src/client/data/deleteFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/setFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/updateFile.json
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Error in test #3
+
+    In this test, the program is running for a long time, more than 15 seconds. Most likely, the program has gone into an infinite loop.
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Arguments for Main: -t get -k text
+    Arguments for Main: -t set -k text -v &quot;Hello World!&quot;
+    Arguments for Main: -t get -k text
+    Arguments for Main: -t delete -k text
+    Arguments for Main: -t delete -k text
+    Arguments for Main: -t get -k text
+    Arguments for Main: -in setFile.json
+
+    stdout:
+    Server started!
+    Client started!
+    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
+    Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;text&quot;,&quot;value&quot;:&quot;Hello World!&quot;}
+    Received: {&quot;response&quot;:&quot;OK&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
+    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Hello World!&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}
+    Received: {&quot;response&quot;:&quot;OK&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}
+    Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
+    Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
+    Client started!
+
+    stderr:
+    /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/client/data/setFile.json
+  time: "Tue, 25 Feb 2025 10:56:39 UTC"
 record: -1

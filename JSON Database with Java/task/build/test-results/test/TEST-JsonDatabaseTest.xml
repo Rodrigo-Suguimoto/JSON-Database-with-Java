@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2025-02-15T13:44:02" hostname="MacBook-Air.local" time="1.352">
+<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2025-02-25T10:56:22" hostname="14926-MB.local" time="16.606">
   <properties/>
-  <testcase name="start" classname="JsonDatabaseTest" time="1.352">
-    <failure message="java.lang.AssertionError: Wrong answer in test #3&#10;&#10;Can't find request JSON object in the output.&#10;It should contain 'response' key&#10;&#10;Please find below the output of your program during this failed test.&#10;&#10;---&#10;&#10;Arguments for Main: -t get -k name&#10;&#10;stdout:&#10;Server started!&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;name&quot;}&#10;&#10;stderr:&#10;Error reading the file: /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/server/data/db.json (No such file or directory)" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #3
+  <testcase name="start" classname="JsonDatabaseTest" time="16.606">
+    <failure message="java.lang.AssertionError: Error in test #3&#10;&#10;In this test, the program is running for a long time, more than 15 seconds. Most likely, the program has gone into an infinite loop.&#10;&#10;Please find below the output of your program during this failed test.&#10;&#10;---&#10;&#10;Arguments for Main: -t get -k text&#10;Arguments for Main: -t set -k text -v &quot;Hello World!&quot;&#10;Arguments for Main: -t get -k text&#10;Arguments for Main: -t delete -k text&#10;Arguments for Main: -t delete -k text&#10;Arguments for Main: -t get -k text&#10;Arguments for Main: -in setFile.json&#10;&#10;stdout:&#10;Server started!&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}&#10;Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;text&quot;,&quot;value&quot;:&quot;Hello World!&quot;}&#10;Received: {&quot;response&quot;:&quot;OK&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}&#10;Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Hello World!&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}&#10;Received: {&quot;response&quot;:&quot;OK&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}&#10;Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}&#10;Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}&#10;Client started!&#10;&#10;stderr:&#10;/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/client/data/setFile.json" type="java.lang.AssertionError">java.lang.AssertionError: Error in test #3
 
-Can't find request JSON object in the output.
-It should contain 'response' key
+In this test, the program is running for a long time, more than 15 seconds. Most likely, the program has gone into an infinite loop.
 
 Please find below the output of your program during this failed test.
 
 ---
 
-Arguments for Main: -t get -k name
+Arguments for Main: -t get -k text
+Arguments for Main: -t set -k text -v &quot;Hello World!&quot;
+Arguments for Main: -t get -k text
+Arguments for Main: -t delete -k text
+Arguments for Main: -t delete -k text
+Arguments for Main: -t get -k text
+Arguments for Main: -in setFile.json
 
 stdout:
 Server started!
 Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;name&quot;}
+Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
+Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;text&quot;,&quot;value&quot;:&quot;Hello World!&quot;}
+Received: {&quot;response&quot;:&quot;OK&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
+Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Hello World!&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}
+Received: {&quot;response&quot;:&quot;OK&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}
+Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
+Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
+Client started!
 
 stderr:
-Error reading the file: /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/server/data/db.json (No such file or directory)
+/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/client/data/setFile.json
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:208)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
@@ -38,28 +60,29 @@ Error reading the file: /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:112)
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
 	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:40)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:54)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:53)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:60)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:52)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
 	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
 	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
-	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:183)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
 	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:121)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
@@ -75,9 +98,25 @@ Start test 2?[0m
 Start test 3?[0m
 Server started!
 Client started!
-Sent: {"type":"get","key":"name"}
+Sent: {"type":"get","key":"text"}
+Received: {"reason":"No such key","response":"ERROR"}
+Client started!
+Sent: {"type":"set","key":"text","value":"Hello World!"}
+Received: {"response":"OK"}
+Client started!
+Sent: {"type":"get","key":"text"}
+Received: {"response":"OK","value":"Hello World!"}
+Client started!
+Sent: {"type":"delete","key":"text"}
+Received: {"response":"OK"}
+Client started!
+Sent: {"type":"delete","key":"text"}
+Received: {"reason":"No such key","response":"ERROR"}
+Client started!
+Sent: {"type":"get","key":"text"}
+Received: {"reason":"No such key","response":"ERROR"}
+Client started!
 ]]></system-out>
-  <system-err><![CDATA[Error reading the file: /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/server/data/db.json (No such file or directory)
-Error reading the file: /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/server/data/db.json (No such file or directory)
+  <system-err><![CDATA[/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/client/data/setFile.json
 ]]></system-err>
 </testsuite>

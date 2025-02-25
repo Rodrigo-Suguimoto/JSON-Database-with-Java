@@ -25,6 +25,7 @@ public class Main {
 
     private static volatile boolean isRunning = true;
     private static Map<String, JsonElement> database;
+    private static final String pathToDb = "/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/src/server/data/db.json";
 
     public static void main(String[] args) {
         String address = "127.0.0.1";
@@ -59,7 +60,6 @@ public class Main {
     }
 
     private static Map<String, JsonElement> loadDatabase() {
-        String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
         try (FileReader reader = new FileReader(pathToDb)) {
             Gson gson = new Gson();
             Type mapType = new TypeToken<Map<String, JsonElement>>() {}.getType();
@@ -72,7 +72,6 @@ public class Main {
     }
 
     public static void saveDatabase() {
-        String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
         Gson gson = new Gson();
         try (FileWriter writer = new FileWriter(pathToDb)) {
             gson.toJson(database, writer);

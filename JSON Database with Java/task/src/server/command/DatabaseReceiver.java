@@ -62,20 +62,20 @@ public class DatabaseReceiver {
         String topLevelKey = keys.getFirst();
         writeLock.lock();
 
-        JsonElement current = null;
-        if (database.containsKey(topLevelKey)) {
-            if (keys.size() == 1) {
-                database.remove(topLevelKey);
-                Main.saveDatabase();
-                response.put("response", new JsonPrimitive("OK"));
-                return response;
-            }
-            current = database.get(topLevelKey);
-        } else {
-            return deleteResponseError();
-        }
-
         try {
+            JsonElement current = null;
+            if (database.containsKey(topLevelKey)) {
+                if (keys.size() == 1) {
+                    database.remove(topLevelKey);
+                    Main.saveDatabase();
+                    response.put("response", new JsonPrimitive("OK"));
+                    return response;
+                }
+                current = database.get(topLevelKey);
+            } else {
+                return deleteResponseError();
+            }
+
             for (int i = 1; i < keys.size() - 1; i++) {
                 if (current == null || !current.isJsonObject()) {
                     return deleteResponseError();
