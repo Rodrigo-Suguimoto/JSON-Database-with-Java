@@ -46,11 +46,25 @@ public class DatabaseReceiver {
 
     public Map<String, JsonElement> set(List<String> keys, JsonElement value) {
         Map<String, JsonElement> response = new HashMap<>();
+        String topLevelKey = keys.getFirst();
         writeLock.lock();
         try {
-            database.put(keys.getFirst(), value);
-            Main.saveDatabase();
-            response.put("response", new JsonPrimitive("OK"));
+            if (keys.size() == 1) {
+                database.put(topLevelKey, value);
+                Main.saveDatabase();
+                response.put("response", new JsonPrimitive("OK"));
+                return response;
+            }
+            JsonElement current = database.get(topLevelKey);
+            System.out.println(current);
+            for (int i = 1; i < keys.size(); i++) {
+                if (current == null) {
+                    System.out.println("is this running?");
+                } else {
+                    current = current.getAsJsonObject().get(keys.get(i));
+                    System.out.println(current);
+                }
+            }
         } finally {
             writeLock.unlock();
         }
@@ -63,7 +77,6 @@ public class DatabaseReceiver {
         writeLock.lock();
 
         try {
-            JsonElement current = null;
             if (database.containsKey(topLevelKey)) {
                 if (keys.size() == 1) {
                     database.remove(topLevelKey);
@@ -71,11 +84,11 @@ public class DatabaseReceiver {
                     response.put("response", new JsonPrimitive("OK"));
                     return response;
                 }
-                current = database.get(topLevelKey);
             } else {
                 return deleteResponseError();
             }
 
+            JsonElement current = database.get(topLevelKey);
             for (int i = 1; i < keys.size() - 1; i++) {
                 if (current == null || !current.isJsonObject()) {
                     return deleteResponseError();

@@ -55,10 +55,13 @@ files:
     visible: true
     is_binary: true
     learner_created: true
-  - name: src/server/data/temp.json
+  - name: src/client/data/setFile.json
     visible: true
     learner_created: true
   - name: src/client/data/getFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/updateFile.json
     visible: true
     learner_created: true
   - name: src/client/data/secondGetFile.json
@@ -67,19 +70,22 @@ files:
   - name: src/client/data/deleteFile.json
     visible: true
     learner_created: true
-  - name: src/client/data/setFile.json
-    visible: true
-    learner_created: true
-  - name: src/client/data/updateFile.json
+  - name: src/client/data/setFileWhenKeyDoesntExist.json
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
 status: Failed
 feedback:
   message: |-
-    Error in test #3
+    Wrong answer in test #3
 
-    In this test, the program is running for a long time, more than 15 seconds. Most likely, the program has gone into an infinite loop.
+    The JSON object at key value should be object, found string
+
+    Full JSON:
+    {
+      &quot;response&quot;: &quot;OK&quot;,
+      &quot;value&quot;: &quot;88&quot;
+    }
 
     Please find below the output of your program during this failed test.
 
@@ -92,8 +98,10 @@ feedback:
     Arguments for Main: -t delete -k text
     Arguments for Main: -t get -k text
     Arguments for Main: -in setFile.json
+    Arguments for Main: -in getFile.json
+    Arguments for Main: -in updateFile.json
+    Arguments for Main: -in secondGetFile.json
 
-    stdout:
     Server started!
     Client started!
     Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
@@ -114,8 +122,20 @@ feedback:
     Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
     Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
     Client started!
+    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;person&quot;,&quot;value&quot;:{&quot;name&quot;:&quot;Elon Musk&quot;,&quot;car&quot;:{&quot;model&quot;:&quot;Tesla Roadster&quot;,&quot;year&quot;:&quot;2018&quot;},&quot;rocket&quot;:{&quot;name&quot;:&quot;Falcon 9&quot;,&quot;launches&quot;:&quot;87&quot;}}}
 
-    stderr:
-    /Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/client/data/setFile.json
-  time: "Tue, 25 Feb 2025 10:56:39 UTC"
+    Received: {&quot;response&quot;:&quot;OK&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:[&quot;person&quot;,&quot;name&quot;]}
+
+    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Elon Musk&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:[&quot;person&quot;,&quot;rocket&quot;,&quot;launches&quot;],&quot;value&quot;:&quot;88&quot;}
+
+    Received: {&quot;response&quot;:&quot;OK&quot;}
+    Client started!
+    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:[&quot;person&quot;]}
+
+    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;88&quot;}
+  time: "Wed, 26 Feb 2025 11:09:44 UTC"
 record: -1

@@ -53,7 +53,7 @@ public class Main {
 
                 if (fileName != null) {
                     try {
-                        String pathToFile = System.getProperty("user.dir") + "/client/data/" + fileName;
+                        String pathToFile = "/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/src/client/data/" + fileName;
                         String jsonRequest =  Files.readString(Paths.get(pathToFile));
                         System.out.println("Sent: " + jsonRequest);
                         output.writeUTF(jsonRequest);
