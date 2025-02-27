@@ -74,68 +74,9 @@ files:
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #3
-
-    The JSON object at key value should be object, found string
-
-    Full JSON:
-    {
-      &quot;response&quot;: &quot;OK&quot;,
-      &quot;value&quot;: &quot;88&quot;
-    }
-
-    Please find below the output of your program during this failed test.
-
-    ---
-
-    Arguments for Main: -t get -k text
-    Arguments for Main: -t set -k text -v &quot;Hello World!&quot;
-    Arguments for Main: -t get -k text
-    Arguments for Main: -t delete -k text
-    Arguments for Main: -t delete -k text
-    Arguments for Main: -t get -k text
-    Arguments for Main: -in setFile.json
-    Arguments for Main: -in getFile.json
-    Arguments for Main: -in updateFile.json
-    Arguments for Main: -in secondGetFile.json
-
-    Server started!
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
-    Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;text&quot;,&quot;value&quot;:&quot;Hello World!&quot;}
-    Received: {&quot;response&quot;:&quot;OK&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
-    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Hello World!&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}
-    Received: {&quot;response&quot;:&quot;OK&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;text&quot;}
-    Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
-    Received: {&quot;reason&quot;:&quot;No such key&quot;,&quot;response&quot;:&quot;ERROR&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;person&quot;,&quot;value&quot;:{&quot;name&quot;:&quot;Elon Musk&quot;,&quot;car&quot;:{&quot;model&quot;:&quot;Tesla Roadster&quot;,&quot;year&quot;:&quot;2018&quot;},&quot;rocket&quot;:{&quot;name&quot;:&quot;Falcon 9&quot;,&quot;launches&quot;:&quot;87&quot;}}}
-
-    Received: {&quot;response&quot;:&quot;OK&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:[&quot;person&quot;,&quot;name&quot;]}
-
-    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Elon Musk&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:[&quot;person&quot;,&quot;rocket&quot;,&quot;launches&quot;],&quot;value&quot;:&quot;88&quot;}
-
-    Received: {&quot;response&quot;:&quot;OK&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:[&quot;person&quot;]}
-
-    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;88&quot;}
-  time: "Wed, 26 Feb 2025 11:09:44 UTC"
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Thu, 27 Feb 2025 10:49:10 UTC"
 record: -1

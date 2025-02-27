@@ -41,4 +41,14 @@
 Client started!
 &Sent: {"type":"get","key":["person"]}
 
-)Received: {"response":"OK","value":"88"}
+•Received: {"response":"OK","value":{"name":"Elon Musk","car":{"model":"Tesla Roadster","year":"2018"},"rocket":{"name":"Falcon 9","launches":"88"}}}
+Client started!
+6Sent: {"type":"delete","key":["person","car","year"]}
+
+Received: {"response":"OK"}
+Client started!
+&Sent: {"type":"get","key":["person"]}
+
+‡Received: {"response":"OK","value":{"name":"Elon Musk","car":{"model":"Tesla Roadster"},"rocket":{"name":"Falcon 9","launches":"88"}}}
+Client started!
+Sent: {"type":"exit"}

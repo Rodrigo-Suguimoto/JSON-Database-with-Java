@@ -55,16 +55,27 @@ public class DatabaseReceiver {
                 response.put("response", new JsonPrimitive("OK"));
                 return response;
             }
-            JsonElement current = database.get(topLevelKey);
-            System.out.println(current);
-            for (int i = 1; i < keys.size(); i++) {
-                if (current == null) {
-                    System.out.println("is this running?");
-                } else {
-                    current = current.getAsJsonObject().get(keys.get(i));
-                    System.out.println(current);
-                }
+
+            JsonElement topElement = database.get(topLevelKey);
+            if (topElement == null || !topElement.isJsonObject()) {
+                topElement = new JsonObject();
+                database.put(topLevelKey, topElement);
             }
+
+            JsonObject currentObj = topElement.getAsJsonObject();
+            for (int i = 1; i < keys.size() - 1; i++) {
+                String key = keys.get(i);
+                if (!currentObj.has(key) || !currentObj.get(key).isJsonObject()) {
+                    currentObj.add(key, new JsonObject());
+                }
+                currentObj = currentObj.get(key).getAsJsonObject();
+            }
+
+            String finalKey = keys.getLast();
+            currentObj.add(finalKey, value);
+
+            Main.saveDatabase();
+            response.put("response", new JsonPrimitive("OK"));
         } finally {
             writeLock.unlock();
         }
