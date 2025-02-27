@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Type;
+
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.concurrent.ExecutorService;
@@ -16,17 +18,14 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.google.gson.Gson;
+import server.command.*;
 import shared.Request;
-import server.command.Command;
-import server.command.DatabaseReceiver;
-import server.command.DeleteCommand;
-import server.command.GetCommand;
-import server.command.SetCommand;
 
 public class Main {
 
     private static volatile boolean isRunning = true;
-    private static Map<String, String> database;
+    private static Map<String, JsonElement> database;
+    private static final String pathToDb = "/Users/rodrigo.suguimoto/IdeaProjects/JSON-Database-with-Java/JSON Database with Java/task/src/server/data/db.json";
 
     public static void main(String[] args) {
         String address = "127.0.0.1";
@@ -60,12 +59,11 @@ public class Main {
         }
     }
 
-    private static Map<String, String> loadDatabase() {
-        String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
+    private static Map<String, JsonElement> loadDatabase() {
         try (FileReader reader = new FileReader(pathToDb)) {
             Gson gson = new Gson();
-            Type mapType = new TypeToken<Map<String, String>>() {}.getType();
-            Map<String, String> database = gson.fromJson(reader, mapType);
+            Type mapType = new TypeToken<Map<String, JsonElement>>() {}.getType();
+            Map<String, JsonElement> database = gson.fromJson(reader, mapType);
             return (database == null) ? new HashMap<>() : database;
         } catch (IOException e) {
             System.err.println("Error reading the file: " + e.getMessage());
@@ -74,7 +72,6 @@ public class Main {
     }
 
     public static void saveDatabase() {
-        String pathToDb = System.getProperty("user.dir") + "/server/data/db.json";
         Gson gson = new Gson();
         try (FileWriter writer = new FileWriter(pathToDb)) {
             gson.toJson(database, writer);
@@ -83,13 +80,12 @@ public class Main {
         }
     }
 
-    private static void handleClient(Socket socket, ServerSocket server, Map<String, String> database,
+    private static void handleClient(Socket socket, ServerSocket server, Map<String, JsonElement> database,
                                      Lock readLock, Lock writeLock, ExecutorService executor) {
         try (socket;
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream())
         ) {
-
             Request clientCommand = Request.deserializeGson(input.readUTF());
 
             if (clientCommand.getType().equalsIgnoreCase("exit")) {
@@ -100,21 +96,14 @@ public class Main {
             }
 
             DatabaseReceiver receiver = new DatabaseReceiver(database, readLock, writeLock);
-            Command command = null;
+            Command command = switch (clientCommand.getType().toLowerCase()) {
+                case "get" -> new GetCommand(receiver, clientCommand.getKeys());
+                case "set" -> new SetCommand(receiver, clientCommand.getKeys(), clientCommand.getValue());
+                case "delete" -> new DeleteCommand(receiver, clientCommand.getKeys());
+                default -> null;
+            };
 
-            switch (clientCommand.getType().toLowerCase()) {
-                case "get":
-                    command = new GetCommand(receiver, clientCommand.getKey());
-                    break;
-                case "set":
-                    command = new SetCommand(receiver, clientCommand.getKey(), clientCommand.getValue());
-                    break;
-                case "delete":
-                    command = new DeleteCommand(receiver, clientCommand.getKey());
-                    break;
-            }
-
-            Map<String, String> response = command.execute();
+            Map<String, JsonElement> response = command.execute();
             String responseAsJson = new Gson().toJson(response);
             output.writeUTF(responseAsJson);
 

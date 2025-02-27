@@ -41,6 +41,42 @@ files:
     visible: true
     is_binary: true
     learner_created: true
+  - name: src/shared/StringListTypeAdapter.java
+    visible: true
+    learner_created: true
+  - name: src/shared/StringListTypeAdapter.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/server/JsonLookup.java
+    visible: true
+    learner_created: true
+  - name: src/server/JsonLookup.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/client/data/setFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/getFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/updateFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/secondGetFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/deleteFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/setFileWhenKeyDoesntExist.json
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Thu, 27 Feb 2025 10:49:10 UTC"
 record: -1

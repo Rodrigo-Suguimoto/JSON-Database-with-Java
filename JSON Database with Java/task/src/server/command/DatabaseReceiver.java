@@ -2,31 +2,41 @@ package server.command;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import server.JsonLookup;
 import server.Main;
 
 public class DatabaseReceiver {
-    private final Map<String, String> database;
+    private final Map<String, JsonElement> database;
     private final Lock readLock;
     private final Lock writeLock;
 
-    public DatabaseReceiver(Map<String, String> database, Lock readLock, Lock writeLock) {
+    public DatabaseReceiver(Map<String, JsonElement> database, Lock readLock, Lock writeLock) {
         this.database = database;
         this.readLock = readLock;
         this.writeLock = writeLock;
     }
 
-    public Map<String, String> get(String key) {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, JsonElement> get(List<String> keys) {
+        Map<String, JsonElement> response = new HashMap<>();
         readLock.lock();
         try {
-            if (database.containsKey(key)) {
-                response.put("response", "OK");
-                response.put("value", database.get(key));
-            } else {
-                response.put("response", "ERROR");
-                response.put("reason", "No such key");
+            if (!database.containsKey(keys.getFirst())) {
+                response.put("response", new JsonPrimitive("ERROR"));
+                response.put("reason", new JsonPrimitive("No such key"));
+            }
+
+            JsonElement root = database.get(keys.getFirst());
+            JsonElement result = JsonLookup.getValueByKeys(root, keys.subList(1, keys.size()));
+
+            if (result != null) {
+                response.put("response", new JsonPrimitive("OK"));
+                response.put("value", result);
             }
         } finally {
             readLock.unlock();
@@ -34,34 +44,93 @@ public class DatabaseReceiver {
         return response;
     }
 
-    public Map<String, String> set(String key, String value) {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, JsonElement> set(List<String> keys, JsonElement value) {
+        Map<String, JsonElement> response = new HashMap<>();
+        String topLevelKey = keys.getFirst();
         writeLock.lock();
         try {
-            database.put(key, value);
+            if (keys.size() == 1) {
+                database.put(topLevelKey, value);
+                Main.saveDatabase();
+                response.put("response", new JsonPrimitive("OK"));
+                return response;
+            }
+
+            JsonElement topElement = database.get(topLevelKey);
+            if (topElement == null || !topElement.isJsonObject()) {
+                topElement = new JsonObject();
+                database.put(topLevelKey, topElement);
+            }
+
+            JsonObject currentObj = topElement.getAsJsonObject();
+            for (int i = 1; i < keys.size() - 1; i++) {
+                String key = keys.get(i);
+                if (!currentObj.has(key) || !currentObj.get(key).isJsonObject()) {
+                    currentObj.add(key, new JsonObject());
+                }
+                currentObj = currentObj.get(key).getAsJsonObject();
+            }
+
+            String finalKey = keys.getLast();
+            currentObj.add(finalKey, value);
+
             Main.saveDatabase();
-            response.put("response", "OK");
+            response.put("response", new JsonPrimitive("OK"));
         } finally {
             writeLock.unlock();
         }
         return response;
     }
 
-    public Map<String, String> delete(String key) {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, JsonElement> delete(List<String> keys) {
+        Map<String, JsonElement> response = new HashMap<>();
+        String topLevelKey = keys.getFirst();
         writeLock.lock();
+
         try {
-            if (database.containsKey(key)) {
-                database.remove(key);
-                Main.saveDatabase();
-                response.put("response", "OK");
+            if (database.containsKey(topLevelKey)) {
+                if (keys.size() == 1) {
+                    database.remove(topLevelKey);
+                    Main.saveDatabase();
+                    response.put("response", new JsonPrimitive("OK"));
+                    return response;
+                }
             } else {
-                response.put("response", "ERROR");
-                response.put("reason", "No such key");
+                return deleteResponseError();
+            }
+
+            JsonElement current = database.get(topLevelKey);
+            for (int i = 1; i < keys.size() - 1; i++) {
+                if (current == null || !current.isJsonObject()) {
+                    return deleteResponseError();
+                }
+                current = current.getAsJsonObject().get(keys.get(i));
+            }
+
+            if (current != null && current.isJsonObject()) {
+                JsonObject parentObj = current.getAsJsonObject();
+                String keyToRemove = keys.getLast();
+
+                if (parentObj.has(keyToRemove)) {
+                    parentObj.remove(keyToRemove);
+                    Main.saveDatabase();
+                    response.put("response", new JsonPrimitive("OK"));
+                    return response;
+                } else {
+                    return deleteResponseError();
+                }
             }
         } finally {
             writeLock.unlock();
         }
         return response;
     }
+
+    private Map<String, JsonElement> deleteResponseError() {
+        Map<String, JsonElement> response = new HashMap<>();
+        response.put("response", new JsonPrimitive("ERROR"));
+        response.put("reason", new JsonPrimitive("No such key"));
+        return response;
+    }
+
 }
