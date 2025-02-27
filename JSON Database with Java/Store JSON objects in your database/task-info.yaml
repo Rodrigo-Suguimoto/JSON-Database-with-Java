@@ -41,12 +41,8 @@ files:
     visible: true
     is_binary: true
     learner_created: true
-  - name: src/shared/StringListTypeAdapter.java
+  - name: src/client/data/setFileWhenKeyDoesntExist.json
     visible: true
-    learner_created: true
-  - name: src/shared/StringListTypeAdapter.class
-    visible: true
-    is_binary: true
     learner_created: true
   - name: src/server/JsonLookup.java
     visible: true
@@ -54,6 +50,13 @@ files:
   - name: src/server/JsonLookup.class
     visible: true
     is_binary: true
+    learner_created: true
+  - name: src/shared/StringListTypeAdapter.class
+    visible: true
+    is_binary: true
+    learner_created: true
+  - name: src/shared/StringListTypeAdapter.java
+    visible: true
     learner_created: true
   - name: src/client/data/setFile.json
     visible: true
@@ -68,9 +71,6 @@ files:
     visible: true
     learner_created: true
   - name: src/client/data/deleteFile.json
-    visible: true
-    learner_created: true
-  - name: src/client/data/setFileWhenKeyDoesntExist.json
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
