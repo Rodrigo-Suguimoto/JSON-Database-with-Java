@@ -41,7 +41,7 @@ files:
     visible: true
     is_binary: true
     learner_created: true
-  - name: src/client/data/setFileWhenKeyDoesntExist.json
+  - name: src/client/data/createMyself.json
     visible: true
     learner_created: true
   - name: src/server/JsonLookup.java
@@ -73,10 +73,13 @@ files:
   - name: src/client/data/deleteFile.json
     visible: true
     learner_created: true
+  - name: src/client/data/setMyCar.json
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
 status: Solved
 feedback:
   message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
     to continue learning.
   time: "Thu, 27 Feb 2025 10:49:10 UTC"
-record: -1
+record: 6

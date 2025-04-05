@@ -1,0 +1,16 @@
+type: choice
+is_multiple_choice: false
+options:
+  - text: A thread can be <b>running</b> or not started yet.
+  - text: A thread can be <b>running</b> or <b>waiting</b> for another thread.
+  - text: "A thread can be <b>ready for running</b>, but not actually <b>running</b>."
+  - text: A thread can be <b>running</b> or <b>ready for running</b> until the scheduler
+      gives a time quantum.
+files:
+  - name: src/Task.java
+    visible: true
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/4885#comment
+status: Solved
+record: -1
+local_check: false

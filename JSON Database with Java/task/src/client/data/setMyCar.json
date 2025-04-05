@@ -1,0 +1,5 @@
+{
+  "type": "set",
+  "key": ["person1", "car"],
+  "value": {"model":  "HB20", "year": 2022}
+}

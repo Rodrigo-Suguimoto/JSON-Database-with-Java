@@ -1,0 +1,5 @@
+{
+  "type": "set",
+  "key": ["person1", "name"],
+  "value": "Rodrigo Suguimoto"
+}

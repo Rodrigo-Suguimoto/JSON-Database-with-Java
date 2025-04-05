@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Topics-States_of_a_thread-How_to_jump_to_the_TIMED_WAITING_state" external.linked.project.path="$MODULE_DIR$/../../../../../Topics/States of a thread/How to jump to the TIMED_WAITING state" external.root.project.path="$MODULE_DIR$/../../../../.." external.system.id="GRADLE" external.system.module.group="JSON-Database-with-Java" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../Topics/States of a thread/How to jump to the TIMED_WAITING state">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/States of a thread/How to jump to the TIMED_WAITING state/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/States of a thread/How to jump to the TIMED_WAITING state/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Topics/States of a thread/How to jump to the TIMED_WAITING state/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

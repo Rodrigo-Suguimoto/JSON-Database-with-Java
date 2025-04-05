@@ -5,7 +5,6 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="delegatedBuild" value="false" />
-        <option name="distributionType" value="WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
@@ -88,6 +87,14 @@
             <option value="$PROJECT_DIR$/Topics/Output streams/Convert to char array" />
             <option value="$PROJECT_DIR$/Topics/Output streams/OutputStream class" />
             <option value="$PROJECT_DIR$/Topics/Output streams/Theory" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/A thread in NEW state" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/Finding and starting a thread" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/How to jump to the TIMED_WAITING state" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/Print name of TERMINATED thread" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/Runnable state" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/The current state of a thread" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/The magic of RUNNABLE state" />
+            <option value="$PROJECT_DIR$/Topics/States of a thread/Theory" />
             <option value="$PROJECT_DIR$/Topics/Thread management/Join" />
             <option value="$PROJECT_DIR$/Topics/Thread management/Ordering the execution of threads" />
             <option value="$PROJECT_DIR$/Topics/Thread management/Summing with threads" />

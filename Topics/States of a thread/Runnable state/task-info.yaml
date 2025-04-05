@@ -1,0 +1,15 @@
+type: choice
+is_multiple_choice: false
+options:
+  - text: It is executing in JVM but it may be waiting for OS resources such as processor
+  - text: It has completed the task and is going to terminate soon
+  - text: It implements the Runnable interface
+  - text: It is ready to run but not executed yet
+files:
+  - name: src/Task.java
+    visible: true
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/3403#comment
+status: Solved
+record: -1
+local_check: false
